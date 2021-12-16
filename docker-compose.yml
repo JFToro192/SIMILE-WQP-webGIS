@@ -15,6 +15,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=user
     volumes:
       - mongo-db-simile:/data/db
-
+  redis-simile:
+    image: redis
 volumes:
   mongo-db-simile: 

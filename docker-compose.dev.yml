@@ -14,7 +14,10 @@ services:
       - NODE_ENV=development
       - MONGO_USER=user
       - MONGO_PASSWORD=user
+      - SESSION_SECRET=secret
     command: npm run dev
+
+    
   mongo-simile:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=user
