@@ -1,18 +1,22 @@
 const express = require("express")
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 require("dotenv").config()
 
-const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT } = require("./config");
+const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT } = require("../config");
 
 const app = express()
 
+
+/* Middleware*/
 // Parse application json
 app.use(bodyParser.json())
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
+
+// CORS
+const cors = require("cors");
 
 var corsOptions = {
     origin: `http://localhost:${process.env.PORT}`
@@ -38,9 +42,10 @@ const connectWithRetry = () =>{
 
 connectWithRetry();
 
-app.get("/", (req, res) => {
-    res.send("<h2>Hi there!</h2>");
-})
+console.log(__dirname);
+app.use(express.static(__dirname +'/public/'))
+
+app.get(/.*/, (req,res) => res.sendFile(__dirname + '/public/index.html'))
 
 const port = process.env.PORT || 3000;
 
