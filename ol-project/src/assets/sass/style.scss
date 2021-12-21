@@ -5,23 +5,10 @@ html, body {
   margin: 0;
   height: 100%;
 }
+
 #map {
   position: absolute;
   top: 0;
   bottom: 0;
   width: 100%;
-}
-
-#interregSimile{
-  position: absolute;
-  top: 2em;
-  right: 2em;
-  z-index: 1000;
-  height: 50px;
-  width: 50px;
-
-  img{
-    max-width: 50px;
-    max-height: 50px;
-  }
 }

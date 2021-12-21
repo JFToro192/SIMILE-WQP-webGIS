@@ -1,18 +1,22 @@
-import '../css/style.css';
 import {MenuControl,
         LayersControl,
         MetadataControl,
         TimeControl,
         BaseMapControl,
-        PlotControl} from '../../components/controls';
+        PlotControl,
+        SocialControl,
+        AboutControl,
+        ProjectLogo} from 'js/controlCreate';
 import {Map, View} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import Overlay from 'ol/Overlay';
+import {fromLonLat, toLonLat} from 'ol/proj';
+import {toStringHDMS} from 'ol/coordinate';
 import { OverviewMap,ScaleLine,FullScreen, defaults as defaultControls} from 'ol/control';
 
-const logoSimile = new Overlay({
-  element: document.getElementById('interregSimile'),
+const logosimile = new Overlay({
+  element: document.getElementById('interregsimile'),
 });
 
 const osm = new OSM();
@@ -37,10 +41,10 @@ const map = new Map({
                        new TimeControl(),
                        new BaseMapControl(),
                        new PlotControl(),
+                       new SocialControl(),
+                       new AboutControl(),
+                       new ProjectLogo(),
               ]),
-  overlays: [
-    logoSimile,
-  ],
   layers: [
     new TileLayer({
       source: osm,
@@ -52,4 +56,6 @@ const map = new Map({
   })
 });
 
-map.addOverlay(logoSimile);
+
+const pos = fromLonLat([16.3725, 48.208889]);
+

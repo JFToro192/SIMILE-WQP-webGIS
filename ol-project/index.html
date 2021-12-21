@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="https://openlayers.org/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SIMILE - WebGIS</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico">
+    <title>SIMILE WebGIS</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
   </head>
   <body>
-    <div id="map"></div>
-    <div id="interregSimile">
-      <img src="./src/assets/img/assev_simile.png" alt="SIMILE">
-    </div>
-    
-    <script src="https://unpkg.com/vue"></script>
-    <script type="module" src="./src/assets/js/map.js"></script>
-    <script src="main.js"></script>
+    <noscript>
+      <strong>We're sorry but this app doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/assets/js/map.js"></script>
+    <script type="module" src="/src/assets/js/controlFunctions.js"></script>
   </body>
 </html>

@@ -49,3 +49,54 @@
 .ol-touch .show-plot {
     top: 80px;
 }
+
+.show-social {
+    top: 245px;
+    left: .5em;
+
+    ul{
+        margin:0;
+        padding: 0;
+        list-style: none;
+    }
+
+    ul > li {
+        display: inline-block;
+    }
+}
+.ol-touch .show-social {
+    top: 80px;
+}
+
+.show-about {
+    top: 275px;
+    left: .5em;
+
+    ul{
+        margin:0;
+        padding: 0;
+        list-style: none;
+    }
+
+    ul > li {
+        display: inline-block;
+    }
+}
+.ol-touch .show-about {
+    top: 80px;
+}
+
+.project-logo {
+    height: 40px;
+    width: auto;
+    position: absolute;
+    bottom: 25px;
+    right: .5em;
+    img{
+        height: 40px;
+    }
+}
+.ol-touch .project-logo {
+    top: 80px;
+    height: 40px!important;
+}
