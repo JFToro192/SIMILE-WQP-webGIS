@@ -1,7 +1,9 @@
+import logoUrl from 'img/assev_simile.png'
+
 import 'ol/ol.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import {Control} from 'ol/control';
-import {openList} from '@/assets/js/controlFunctions'
+import {openList, openPanel} from '@/assets/js/controlFunctions'
 
 /* MENU CONTROL */ 
 class MenuControl extends Control {
@@ -41,14 +43,17 @@ class LayersControl extends Control {
     button.title = 'layers panel';
 
     const element = document.createElement('div');
-    element.className = 'show-layers ol-unselectable ol-control control-bar burger-item';
+    element.className = 'show-layer ol-unselectable ol-control control-bar burger-item';
     element.appendChild(button);
 
     super({
       element: element,
       target: options.target,
     });
+    element.addEventListener('click', openPanel.bind(this), false);
   }
+
+
 }
 
 /* METADATA PANEL CONTROL */
@@ -72,6 +77,7 @@ class MetadataControl extends Control {
       element: element,
       target: options.target,
     });
+    element.addEventListener('click', openPanel.bind(this), false);
   }
 }
 
@@ -96,6 +102,7 @@ class TimeControl extends Control {
       element: element,
       target: options.target,
     });
+    element.addEventListener('click', openPanel.bind(this), false);
   }
 }
 
@@ -120,6 +127,7 @@ class BaseMapControl extends Control {
       element: element,
       target: options.target,
     });
+    element.addEventListener('click', openPanel.bind(this), false);
   }
 }
 
@@ -145,6 +153,7 @@ class PlotControl extends Control {
       element: element,
       target: options.target,
     });
+    element.addEventListener('click', openPanel.bind(this), false);
   }
 }
 
@@ -247,7 +256,13 @@ class ProjectLogo extends Control {
     const options = opt_options || {};
 
     const div = document.createElement('div');
-    div.innerHTML = '<a href="https://www.progetti.interreg-italiasvizzera.eu/it/b/78/sistemainformativoperilmonitoraggiointegratodeilaghiinsubriciedeiloroe"><img src="src/assets/img/assev_simile.png" alt="logo-interreg-simile"></a>';
+    const a = document.createElement('a');
+    a.href = "https://www.progetti.interreg-italiasvizzera.eu/it/b/78/sistemainformativoperilmonitoraggiointegratodeilaghiinsubriciedeiloroe";
+    const img = document.createElement('img');
+    img.src = logoUrl;
+    img.alt = 'logo-simile-interreg';
+    a.appendChild(img);
+    div.appendChild(a);
 
     const element = document.createElement('div');
     element.className = 'project-logo ol-unselectable ol-control';
