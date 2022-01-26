@@ -1,15 +1,28 @@
 <template>
-  <WebGISContainer/>
+  <WebGISContainer
+    :settings="settings"
+    :layer="layer_list"
+  />
 </template>
 
 <script>
+// Import App components
 import 'css/style.css'
 import WebGISContainer from './components/WebGISContainer.vue'
+
+// Settings
+import {settings} from '@/assets/js/settings'
+
 export default {
   name: 'App',
-  components: {
-    WebGISContainer,
-  }
+  	data () {
+    	return {
+      		settings: settings,
+		}
+	},
+	components: {
+		WebGISContainer,
+	},
 }
 </script>
 

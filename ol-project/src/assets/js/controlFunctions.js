@@ -15,13 +15,17 @@ function openList()
 function openPanel() {
     const className = '.'+this.element.classList[0];
     const classItem = '.'+className.split("-")[1] + '-panel';
-    const element = $(classItem)
-    if (element.hasClass('active')) {
-        element.hide();
-        element.removeClass('active');}
+    const elementButton = $(className)
+    const elementPanel = $(classItem)
+    if (elementPanel.hasClass('active')) {
+        elementPanel.hide();
+        elementButton.removeClass('active');
+        elementPanel.removeClass('active');
+    }
     else{
-        element.show();
-        element.addClass('active');
+        elementPanel.show();
+        elementButton.addClass('active');
+        elementPanel.addClass('active');
     }   
 }
 

@@ -21,6 +21,9 @@ const plotPanel = new Control({
   element: document.getElementById('plotPanel'),
 });
 
+const slidePanel = new Control({
+  element: document.getElementById('slidePanel'),
+});
 
 const popup = new Control({
     element: document.getElementById('popup'),
@@ -33,5 +36,6 @@ export {
     timePanel,
     basemapPanel,
     plotPanel,
+    slidePanel,
     popup,
 }

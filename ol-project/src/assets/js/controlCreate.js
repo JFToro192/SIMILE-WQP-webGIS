@@ -1,5 +1,4 @@
 import logoUrl from 'img/assev_simile.png'
-
 import 'ol/ol.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import {Control} from 'ol/control';
@@ -157,6 +156,32 @@ class PlotControl extends Control {
   }
 }
 
+/* PLOT PANEL CONTROL */
+class SlideControl extends Control {
+  /**
+   * @param {Object} [opt_options] Control options.
+   */
+  constructor(opt_options) {
+    const options = opt_options || {};
+
+    const button = document.createElement('button');
+    button.innerHTML = '<i class="bi bi-file-earmark-easel"></i>';
+
+    button.title = 'webgis guide';
+
+    const element = document.createElement('div');
+
+    element.className = 'show-slide ol-unselectable ol-control control-bar burger-item';
+    element.appendChild(button);
+
+    super({
+      element: element,
+      target: options.target,
+    });
+    element.addEventListener('click', openPanel.bind(this), false);
+  }
+}
+
 /* SOCIAL MEDIA CONTROLS */ 
 class SocialControl extends Control {
   /**
@@ -282,6 +307,7 @@ export {MenuControl,
         TimeControl, 
         BaseMapControl, 
         PlotControl,
+        SlideControl,
         SocialControl,
         AboutControl,
         ProjectLogo

@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 require("dotenv").config()
 
+// Libraries
+// app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
+
+
 const { 
     MONGO_USER, 
     MONGO_PASSWORD, 
@@ -25,7 +29,6 @@ const postRouter = require("./routes/postRoutes")
 const userRouter = require("./routes/userRoutes")
 
 const app = express()
-
 
 /* Middleware*/
 // Parse application json

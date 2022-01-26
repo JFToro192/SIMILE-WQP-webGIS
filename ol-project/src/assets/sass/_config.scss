@@ -1,3 +1,26 @@
+$primary-bg-color:#007787;
+$secondary-bg-color: #8b8b8b;
+$tertiary-bg-color: #FFFFFF;
+
+$primary-font-color: #000000;
+$secondary-font-color: #FFFFFF;
+
+$border-rad:4px;
+
 body {
     font-family: 'Courier New', Courier, monospace;
+}
+
+button{
+    background: rgba($primary-bg-color, 0.5) !important;
+
+    &:hover{
+        background: $primary-bg-color !important;
+    }
+}
+
+.control-bar.active{
+    button{
+        background: $primary-bg-color !important;
+    }
 }

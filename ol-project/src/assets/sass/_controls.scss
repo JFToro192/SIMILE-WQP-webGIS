@@ -50,8 +50,16 @@
     top: 80px;
 }
 
-.show-social {
+.show-slide {
     top: 245px;
+    left: .5em;
+    }
+.ol-touch .show-slide {
+    top: 80px;
+}
+
+.show-social {
+    top: 275px;
     left: .5em;
 
     ul{
@@ -69,7 +77,7 @@
 }
 
 .show-about {
-    top: 275px;
+    top: 305px;
     left: .5em;
 
     ul{
