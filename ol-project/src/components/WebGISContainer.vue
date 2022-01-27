@@ -299,7 +299,8 @@ export default {
                                 fetch(url)
                                 .then((response) => response.json())
                                 .then((html) => {
-                                    popupPixelInfo.innerHTML = html.features[0].properties["GRAY_INDEX"].toFixed(2); 
+                                    popupPixelInfo.innerHTML = '<p>Value: </p><code>' + html.features[0].properties["GRAY_INDEX"].toFixed(2) + '</code>'; 
+                                    popupTitle.innerHTML = layer.values_.source.params_.LAYERS.split(':')[1];
                                 });
 
                                 // Implementing the requests for building the plot
@@ -327,6 +328,9 @@ export default {
                                 })
                             }
                             console.log(temp_array);
+                        } else {
+                            popupPixelInfo.innerHTML = '<p>Value: </p><code>' + 'N/A' + '</code>'; 
+                            popupTitle.innerHTML = 'Click on a layer';
                         }
                     });
                 });

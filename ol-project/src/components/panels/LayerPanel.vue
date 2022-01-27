@@ -10,14 +10,15 @@
                                     title="set visible"
                                     name="" 
                                     id=""
+                                    v-bind:class="'layer-static-'+index"
                                     v-on:change="setLayerVisible(1,index)">
                         </div>
                         <div class="title-layer"><p v-bind:title="key">{{key}}</p></div>
-                        <!-- <div class="dwnld-layer"><i class="bi bi-box-arrow-down"></i></div> -->
+                        <div class="dwnld-layer"><i class="bi bi-box-arrow-down"></i></div>
                         <div    class="info-layer"
                                 v-on:click="setLayerMetadata('static',{key})"><i class="bi bi-info-square"></i>
                         </div>
-                        <div  class="opct-layer"><i class="bi bi-circle-half"></i></div>
+                        <div  class="opct-layer"><i class="bi bi-brightness-high"></i></div>
                         <div class="opct-range-layer">
                             <input  type="range" 
                                     name="" 
@@ -35,20 +36,21 @@
             <div class="time-series-layers active" id="timeSeriesLayers">
                 <div class="time-series-layer layer-list"  v-for="(layer, key, index) in layer_list.time" :key="layer.time">
                     <div class="layer-items">
-                        <div v-bind:class="'chckbx-layer layer-timeSeries-'+index">
+                        <div v-bind:class="'chckbx-layer'+index">
                             <input  type="checkbox"
                                     title="set visible"
                                     name="" 
                                     id=""
-                                    v-on:change="setLayerVisible(2,index)">
+                                    v-bind:class="'layer-timeSeries-'+index"
+                                    v-on:change="setLayerVisible(2,index); setLayerMetadata('time',{key})">
                         </div>
                         <div class="title-layer"><p v-bind:title="key">{{key}}</p></div>
-                        <!-- <div class="dwnld-layer"><i class="bi bi-box-arrow-down"></i></div> -->
+                        <div class="dwnld-layer"><i class="bi bi-box-arrow-down"></i></div>
                         <div    class="info-layer"
                                 v-on:click="setLayerMetadata('time',{key})"
                                 ><i class="bi bi-info-square"></i>
                         </div>
-                        <div  class="opct-layer"><i class="bi bi-circle-half"></i></div>
+                        <div  class="opct-layer"><i class="bi bi-brightness-high"></i></div>
                         <div class="opct-range-layer">
                             <input type="range" 
                                     name="" 
@@ -79,7 +81,6 @@ export default {
 	},
     data () {
         return{
-            
         }
     },
     methods: {
@@ -105,8 +106,9 @@ export default {
     display:none;
     top: 0.5em;
     left: 2.5em;
-    width: 40vw;
+    width: 35vw;
     height: 50vh;
+    overflow-x: hidden;
     overflow-y: auto;
 
     h6{

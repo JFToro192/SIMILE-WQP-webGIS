@@ -182,95 +182,95 @@ class SlideControl extends Control {
   }
 }
 
-/* SOCIAL MEDIA CONTROLS */ 
-class SocialControl extends Control {
-  /**
-   * @param {Object} [opt_options] Control options.
-   */
-  constructor(opt_options) {
-    const options = opt_options || {};
+// /* SOCIAL MEDIA CONTROLS */ 
+// class SocialControl extends Control {
+//   /**
+//    * @param {Object} [opt_options] Control options.
+//    */
+//   constructor(opt_options) {
+//     const options = opt_options || {};
 
-    const list = document.createElement('ul');
-    const item_main = document.createElement('li');
-    const item_fb = document.createElement('li');
-    const item_tw = document.createElement('li');
-    const item_li = document.createElement('li');
-    const item_ig = document.createElement('li');
-    item_main.innerHTML = '<button><i class="bi bi-people"></i></button>';
-    item_fb.innerHTML = '<button class="social-item" style="display:none;"><i class="bi bi-facebook"></i></button>';
-    item_tw.innerHTML = '<button class="social-item" style="display:none;"><i class="bi bi-twitter"></i></button>';
-    item_li.innerHTML = '<button class="social-item" style="display:none;"><i class="bi bi-linkedin"></i></button>';
-    item_ig.innerHTML = '<button class="social-item" style="display:none;"><i class="bi bi-instagram"></i></button>';
+//     const list = document.createElement('ul');
+//     const item_main = document.createElement('li');
+//     const item_fb = document.createElement('li');
+//     const item_tw = document.createElement('li');
+//     const item_li = document.createElement('li');
+//     const item_ig = document.createElement('li');
+//     item_main.innerHTML = '<button><i class="bi bi-people"></i></button>';
+//     item_fb.innerHTML = '<button class="social-item" style="display:none;"><i class="bi bi-facebook"></i></button>';
+//     item_tw.innerHTML = '<button class="social-item" style="display:none;"><i class="bi bi-twitter"></i></button>';
+//     item_li.innerHTML = '<button class="social-item" style="display:none;"><i class="bi bi-linkedin"></i></button>';
+//     item_ig.innerHTML = '<button class="social-item" style="display:none;"><i class="bi bi-instagram"></i></button>';
 
-    item_main.title = 'social';
-    item_fb.title = 'facebook';
-    item_tw.title = 'twitter';
-    item_li.title = 'linkedin';
-    item_ig.title = 'instagram';
-
-
-    const element = document.createElement('div');
-    element.className = 'show-social ol-unselectable ol-control control-bar burger-item';
-    list.appendChild(item_main);
-    list.appendChild(item_fb);
-    list.appendChild(item_tw);
-    list.appendChild(item_li);
-    list.appendChild(item_ig);
-    element.appendChild(list);
-
-    super({
-      element: element,
-      target: options.target,
-    });
-
-    item_main.addEventListener('click', openList.bind(this), false);
-  }
-}
-
-/* ABOUT PROJECT CONTROLS */ 
-class AboutControl extends Control {
-  /**
-   * @param {Object} [opt_options] Control options.
-   */
-  constructor(opt_options) {
-    const options = opt_options || {};
-
-    const list = document.createElement('ul');
-    const item_main = document.createElement('li');
-    const item_news = document.createElement('li');
-    const item_business = document.createElement('li');
-    const item_gh = document.createElement('li');
-    const item_calendar = document.createElement('li');
-    item_main.innerHTML = '<button ><i class="bi bi-journals"></i></button>';
-    item_news.innerHTML = '<button class="about-item" style="display:none;"><i class="bi bi-newspaper"></i></button>';
-    item_business.innerHTML = '<button class="about-item" style="display:none;"><i class="bi bi-briefcase"></i></button>';
-    item_gh.innerHTML = '<button class="about-item" style="display:none;"><i class="bi bi-github"></i></button>';
-    item_calendar.innerHTML = '<button class="about-item" style="display:none;"><i class="bi bi-calendar-week"></i></button>';
-
-    item_main.title = 'portfolio';
-    item_news.title = 'news';
-    item_business.title = 'business intelligence platform';
-    item_gh.title = 'webgis github repository';
-    item_calendar.title = 'calendar';
+//     item_main.title = 'social';
+//     item_fb.title = 'facebook';
+//     item_tw.title = 'twitter';
+//     item_li.title = 'linkedin';
+//     item_ig.title = 'instagram';
 
 
-    const element = document.createElement('div');
-    element.className = 'show-about ol-unselectable ol-control control-bar burger-item';
-    list.appendChild(item_main);
-    list.appendChild(item_news);
-    list.appendChild(item_business);
-    list.appendChild(item_gh);
-    list.appendChild(item_calendar);
-    element.appendChild(list);
+//     const element = document.createElement('div');
+//     element.className = 'show-social ol-unselectable ol-control control-bar burger-item';
+//     list.appendChild(item_main);
+//     list.appendChild(item_fb);
+//     list.appendChild(item_tw);
+//     list.appendChild(item_li);
+//     list.appendChild(item_ig);
+//     element.appendChild(list);
 
-    super({
-      element: element,
-      target: options.target,
-    });
+//     super({
+//       element: element,
+//       target: options.target,
+//     });
 
-    item_main.addEventListener('click', openList.bind(this), false);
-  }
-}
+//     item_main.addEventListener('click', openList.bind(this), false);
+//   }
+// }
+
+// /* ABOUT PROJECT CONTROLS */ 
+// class AboutControl extends Control {
+//   /**
+//    * @param {Object} [opt_options] Control options.
+//    */
+//   constructor(opt_options) {
+//     const options = opt_options || {};
+
+//     const list = document.createElement('ul');
+//     const item_main = document.createElement('li');
+//     const item_news = document.createElement('li');
+//     const item_business = document.createElement('li');
+//     const item_gh = document.createElement('li');
+//     const item_calendar = document.createElement('li');
+//     item_main.innerHTML = '<button ><i class="bi bi-journals"></i></button>';
+//     item_news.innerHTML = '<button class="about-item" style="display:none;"><i class="bi bi-newspaper"></i></button>';
+//     item_business.innerHTML = '<button class="about-item" style="display:none;"><i class="bi bi-briefcase"></i></button>';
+//     item_gh.innerHTML = '<button class="about-item" style="display:none;"><i class="bi bi-github"></i></button>';
+//     item_calendar.innerHTML = '<button class="about-item" style="display:none;"><i class="bi bi-calendar-week"></i></button>';
+
+//     item_main.title = 'portfolio';
+//     item_news.title = 'news';
+//     item_business.title = 'business intelligence platform';
+//     item_gh.title = 'webgis github repository';
+//     item_calendar.title = 'calendar';
+
+
+//     const element = document.createElement('div');
+//     element.className = 'show-about ol-unselectable ol-control control-bar burger-item';
+//     list.appendChild(item_main);
+//     list.appendChild(item_news);
+//     list.appendChild(item_business);
+//     list.appendChild(item_gh);
+//     list.appendChild(item_calendar);
+//     element.appendChild(list);
+
+//     super({
+//       element: element,
+//       target: options.target,
+//     });
+
+//     item_main.addEventListener('click', openList.bind(this), false);
+//   }
+// }
 
 /* STATIC PROJECT LOGO */ 
 class ProjectLogo extends Control {
@@ -308,7 +308,7 @@ export {MenuControl,
         BaseMapControl, 
         PlotControl,
         SlideControl,
-        SocialControl,
-        AboutControl,
+        // SocialControl,
+        // AboutControl,
         ProjectLogo
       }

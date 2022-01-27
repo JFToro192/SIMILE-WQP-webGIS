@@ -120,16 +120,16 @@ function basemapLayers(organizedLayers){
                 visible: true
             })],
         },
-        watercolor:{
-            title:'watercolor',
-            source:'Stamen',
-            layer:[new TileLayer({
-                    source: new Stamen({
-                        layer: 'watercolor',
-                    }),
-                    visible:false
-                    })]
-        },
+        // watercolor:{
+        //     title:'watercolor',
+        //     source:'Stamen',
+        //     layer:[new TileLayer({
+        //             source: new Stamen({
+        //                 layer: 'watercolor',
+        //             }),
+        //             visible:false
+        //             })]
+        // },
         terrain:{
             title:'terrain',
             source:'Stamen',

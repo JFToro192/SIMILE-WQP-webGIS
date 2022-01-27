@@ -5,16 +5,16 @@ import {MenuControl,
 		BaseMapControl,
 		PlotControl,
 		SlideControl,
-		SocialControl,
-		AboutControl,
+		// SocialControl,
+		// AboutControl,
 		ProjectLogo} from 'js/controlCreate';
-import {layerPanel,
-		metadataPanel,
-		timePanel,
-		basemapPanel,
-		plotPanel,
-		slidePanel,
-		popup} from 'js/panelCreate';
+// import {layerPanel,
+// 		metadataPanel,
+// 		timePanel,
+// 		basemapPanel,
+// 		plotPanel,
+// 		slidePanel,
+// 		popup} from 'js/panelCreate';
 import {Map, View} from 'ol';
 import 'ol/ol.css';
 import TileLayer from 'ol/layer/Tile';
@@ -59,8 +59,8 @@ function addMap() {
 							// plotPanel,
 							// slidePanel,
 							new SlideControl(),
-							new SocialControl(),
-							new AboutControl(),
+							// new SocialControl(),
+							// new AboutControl(),
 							new ProjectLogo(),
 					]),
 		view: new View({

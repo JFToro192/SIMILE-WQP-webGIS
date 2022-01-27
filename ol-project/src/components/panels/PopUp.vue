@@ -1,10 +1,11 @@
 <template>
     <div id="popup" class="ol-popup">
-        <h6 id="popup-title">{{title}}</h6>
+        <div id="popup-title">{{title}}</div>
             <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-            <div id="info">&nbsp;</div>
-        <div id="popup-coordinate">{{pixelCoordinate}}</div>
-        <div id="popup-getinfo">{{pixelInfo}}</div>
+        <div id="popup-info">
+            <div id="popup-getinfo">Value: {{pixelInfo}} {{pixelUnits}}</div>
+            <div id="popup-coordinate">Coordinates: {{pixelCoordinate}}</div>
+        </div>
     </div>
 </template>
 
@@ -35,9 +36,14 @@ export default {
         pixelCoordinate: {
             type: String,
             required: true,
-            default:'Coordinates'
+            default:'click-on map'
         },
         pixelInfo: {
+            type: String,
+            required: true,
+            default:'N/A'
+        },
+        pixelUnits: {
             type: String,
             required: true,
             default:'N/A'
@@ -46,27 +52,37 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
-      .ol-popup {
+<style lang="scss" scoped>
+    @import "@/assets/sass/style.scss";
+
+    .ol-popup {
         z-index: 1;
         position: absolute;
-        background-color: white;
+        background-color: rgba($secondary-bg-color,0.7);
         box-shadow: 0 1px 4px rgba(0,0,0,0.2);
         padding: 15px;
         border-radius: 10px;
         border: 1px solid #cccccc;
-        
-
         min-width: 280px;
-      }
+    }
 
-      .ol-popup-closer {
+    #popup-title{
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #popup-info{
+        padding: 4px;
+        background: rgba($tertiary-bg-color,0.7)
+    }
+
+    .ol-popup-closer {
         text-decoration: none;
         position: absolute;
         top: 2px;
         right: 8px;
-      }
-      .ol-popup-closer:after {
+    }
+    .ol-popup-closer:after {
         content: "✖";
-      }
+    }
 </style>

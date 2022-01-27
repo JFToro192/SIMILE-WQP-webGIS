@@ -14,7 +14,7 @@ const settings = {
             title:"Total Suspended Matter",
             abstract:"Total suspended matter concentration",
             style:"tsm",
-            units: "mg/m3",
+            units: "g/m3",
         },
         LSWT:{
             title:"Lake Surface Water Temperature",
@@ -22,11 +22,12 @@ const settings = {
             style:"lswt",
             units: "°C",
         }
+        
     },
     basemaps: [
         //A single basemap should be set as visible
         {layer:'osm',source:'osm',src:'osm.png',active:true},
-        {layer:'watercolor',source:'stamen',src:'watercolor.png',active:false},
+        // {layer:'watercolor',source:'stamen',src:'watercolor.png',active:false},
         {layer:'terrain',source:'terrain-labels',src:'terrain.png',active:false},
         {layer:'toner',source:'toner',src:'toner.png',active:false},
         {layer:'none',source:'none',src:'none.png',active:false},
