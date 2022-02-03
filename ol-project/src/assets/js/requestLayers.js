@@ -64,6 +64,7 @@ function organizeLayers(layers,typologies,url) {
     // TODO: add exceptions for the irregular name formatting
     item.workspace = arr[0]
     item.name = arr[1].split('_').slice(0,3).join('_');
+    // item.name = arr[1].split('_').slice(0,2).join('_');//Remove the CRS from the name
     item.sensor = arr[1].split('_')[0]
     item.typology = arr[1].split('_')[1]
     item.crs = arr[1].split('_')[2]
@@ -91,6 +92,13 @@ function organizeLayers(layers,typologies,url) {
             item.layer['title'] = 'time'
             item.layer['date'] = item.timeFormatted
             item.layer['name'] = item.name
+            if (item.name.split('_')[1]=="LSWT"){
+                item.layer['units'] = '[°C]'
+            } else if (item.name.split('_')[1]=="CHL"){
+                item.layer['units'] = '[mg/m3]'
+            } else if (item.name.split('_')[1]=="TSM"){
+                item.layer['units'] = '[g/m3]'
+            }
             layers_dict.time[item.name].timeComplete.push(item.timeComplete);
             layers_dict.time[item.name].timeFormatted.push(item.timeFormatted);
             layers_dict.time[item.name].layer.push(item.layer);
@@ -100,6 +108,13 @@ function organizeLayers(layers,typologies,url) {
             item.layer['title'] = 'time'
             item.layer['name'] = item.name
             item.layer['date'] = item.timeFormatted
+            if (item.name.split('_')[1]=="LSWT"){
+                item.layer['units'] = '[°C]'
+            } else if (item.name.split('_')[1]=="CHL"){
+                item.layer['units'] = '[mg/m3]'
+            } else if (item.name.split('_')[1]=="TSM"){
+                item.layer['units'] = '[g/m3]'
+            }
             layers_dict.time = createDictLayers(layers_dict.time,item);
         }
     }
@@ -203,10 +218,17 @@ function createLayerGroups(organizedLayers){
     return groups //[basemaps,static,time]
 }
 
+function plotData(arr_data) {
+    arr_data.forEach(element => {
+        console.log(element['Date'],element['Value']);
+    });
+}
+
 export {
     getLayersWMS,
     organizeLayers,
     createTileWMS,
     basemapLayers,
-    createLayerGroups
+    createLayerGroups,
+    plotData
 }

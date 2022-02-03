@@ -7,7 +7,8 @@ import {MenuControl,
 		SlideControl,
 		// SocialControl,
 		// AboutControl,
-		ProjectLogo} from 'js/controlCreate';
+		ProjectLogo,
+		GeonodeControl} from 'js/controlCreate';
 // import {layerPanel,
 // 		metadataPanel,
 // 		timePanel,
@@ -62,6 +63,7 @@ function addMap() {
 							// new SocialControl(),
 							// new AboutControl(),
 							new ProjectLogo(),
+							new GeonodeControl(),
 					]),
 		view: new View({
 			center: [994904.360160,5775887.605341],

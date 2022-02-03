@@ -21,8 +21,7 @@ const settings = {
             abstract:"Average lake surface temperature",
             style:"lswt",
             units: "°C",
-        }
-        
+        }   
     },
     basemaps: [
         //A single basemap should be set as visible

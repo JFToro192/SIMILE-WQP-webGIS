@@ -1,7 +1,6 @@
 <template>
   <WebGISContainer
     :settings="settings"
-    :layer="layer_list"
   />
 </template>
 

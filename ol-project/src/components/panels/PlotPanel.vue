@@ -6,7 +6,6 @@
 </template>
 
 <script>
-console.log("hello");
 export default {
     name: 'Plot',
 	props:{
@@ -98,7 +97,6 @@ export default {
     display: inline-block;
     position: relative;
     width: 100%;
-    padding-bottom: 100%;
     vertical-align: top;
     overflow: hidden;
 }

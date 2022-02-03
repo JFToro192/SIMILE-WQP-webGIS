@@ -1,6 +1,6 @@
 <template>
         <div id="metadataPanel" class="metadata-panel ol-unselectable ol-control">
-            {{child_msg}}
+            <div class="panel-title">{{child_msg}}</div> 
             <div class="meta-title">
                 <h6>{{title}}</h6>
             </div>
@@ -99,14 +99,21 @@ export default {
     }
 }
 
+.panel-title{
+    width: 100%;
+    height: 15%;
+    text-align: center;
+}
+
 .meta-title{
     width: 100%;
+    height: 10%;
     text-align: center;
 }
 
 .meta-abstract{
     width: 100%;
-    height: 30%;
+    height: 40%;
     background: rgba($tertiary-bg-color,0.5);
     overflow-y: auto;
 }
@@ -114,18 +121,21 @@ export default {
 .meta-info{
     display: inline-flex;
     width: 100%;
+    height: 35%;
     border-radius: 4px;
     overflow-y: auto;
 }
 
 .meta-details{
     width: 50%;
+    height:35vh;
     background: rgba($tertiary-bg-color,0.5);
 }
 
 .meta-legend{
     position: relative;
     width: 50%;
+    height:35vh;
     background: rgba($tertiary-bg-color,0.5);  
 }
 </style>

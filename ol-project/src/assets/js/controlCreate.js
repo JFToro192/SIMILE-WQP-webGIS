@@ -272,6 +272,32 @@ class SlideControl extends Control {
 //   }
 // }
 
+/* GEONODE CONTROL */
+class GeonodeControl extends Control {
+  /**
+   * @param {Object} [opt_options] Control options.
+   */
+  constructor(opt_options) {
+    const options = opt_options || {};
+
+    const button = document.createElement('button');
+    button.innerHTML = '<a href="http://127.0.0.1/"><i class="bi bi-people-fill"></i></a>';
+    button.src = 
+
+    button.title = 'GeoNode';
+
+    const element = document.createElement('div');
+
+    element.className = 'show-geonode ol-unselectable ol-control control-bar';
+    element.appendChild(button);
+
+    super({
+      element: element,
+      target: options.target,
+    });
+  }
+}
+
 /* STATIC PROJECT LOGO */ 
 class ProjectLogo extends Control {
   /**
@@ -310,5 +336,6 @@ export {MenuControl,
         SlideControl,
         // SocialControl,
         // AboutControl,
-        ProjectLogo
+        ProjectLogo,
+        GeonodeControl
       }

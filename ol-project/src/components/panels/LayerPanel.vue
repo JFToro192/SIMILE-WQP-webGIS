@@ -11,7 +11,7 @@
                                     name="" 
                                     id=""
                                     v-bind:class="'layer-static-'+index"
-                                    v-on:change="setLayerVisible(1,index)">
+                                    v-on:change="setLayerVisible($event,1,index,'static',{key})">
                         </div>
                         <div class="title-layer"><p v-bind:title="key">{{key}}</p></div>
                         <div class="dwnld-layer"><i class="bi bi-box-arrow-down"></i></div>
@@ -42,7 +42,7 @@
                                     name="" 
                                     id=""
                                     v-bind:class="'layer-timeSeries-'+index"
-                                    v-on:change="setLayerVisible(2,index); setLayerMetadata('time',{key})">
+                                    v-on:change="setLayerVisible($event,2,index,'time',{key})">
                         </div>
                         <div class="title-layer"><p v-bind:title="key">{{key}}</p></div>
                         <div class="dwnld-layer"><i class="bi bi-box-arrow-down"></i></div>
@@ -84,8 +84,11 @@ export default {
         }
     },
     methods: {
-        setLayerVisible(nGroup,index) {
+        setLayerVisible(evt,nGroup,index,layerType, layerName) {
             this.$emit('setLayerVisible', {nGroup, index})
+            if (evt.target.checked){
+                this.setLayerMetadata(layerType, layerName)
+            }
         },
         setLayerOpacity(evt, nGroup,index) {
             let opacity = evt.target.value;
@@ -106,8 +109,8 @@ export default {
     display:none;
     top: 0.5em;
     left: 2.5em;
-    width: 35vw;
-    height: 50vh;
+    width: 30vw;
+    height: 40vh;
     overflow-x: hidden;
     overflow-y: auto;
 

@@ -15,6 +15,7 @@
                 :abstract="abstract"
                 :to="to"
                 :tf="tf"
+                :typology="typology"
                 :units="units"
                 :crs="crs"
                 :legend="legend"
@@ -43,8 +44,8 @@
             :settings="settings"
         />
         <plotPanel :child_msg="'Plot-Panel'"/>
+        <!-- TODO: set inputs pixelInfo, pixelUnits, pixelCoordinates -->
         <popUp/>
-        <div id="popup" class="popup ol-unselectable ol-control"></div>
     </div>
 
 </template>
@@ -61,7 +62,7 @@ import {layerPanel,
 		slidePanel,
 		popup} from 'js/panelCreate';
 // Organize layers
-import {organizeLayers, basemapLayers, createLayerGroups} from '@/assets/js/requestLayers'
+import {organizeLayers, basemapLayers, createLayerGroups, plotData} from '@/assets/js/requestLayers'
 // Components
 import LayerPanel from './panels/LayerPanel.vue'
 import MetadataPanel from './panels/MetadataPanel.vue'
@@ -90,6 +91,7 @@ export default {
             layer_groups: {},
             map: {},
             title: "Select a Layer",
+            typology:"N/A",
             abstract:"N/A",
             to:"N/A",
             tf:"N/A",
@@ -102,6 +104,7 @@ export default {
             currentDate:'',
             currentDateIndex:'',
             datesListLength:'',
+            noGetinfo:0,
         }
     },
     props: {
@@ -153,9 +156,10 @@ export default {
                         return false
                     } else if (layer_check==0 && i==lll) {  
                         this.map.getLayers().array_[nGroup+index].values_.layers.array_[lll].setVisible(!currentVisibilityLayer)     
+                        this.currentDate = layer.date
                     }
                 });
-                
+                console.log(this.currentDate);
                 // Visibility on/off only for the last layer of the group
     
             }
@@ -165,6 +169,7 @@ export default {
             let index = value.emitDate;
             let getLayersGroup = this.map.getLayers().array_[nGroup].values_.layers.array_
             getLayersGroup.forEach((element,i) => {
+                
                 if (index==i){
                     element.setVisible(true)
                 } else {
@@ -205,6 +210,7 @@ export default {
             if (layerType == 'time'){
                 let tplg = layer.typology
                 let timeFormat = layer.timeFormatted
+                this.typology = tplg
                 this.abstract = this.settings.typology[tplg].abstract
                 this.units = this.settings.typology[tplg].units
                 this.crs = layer.crs
@@ -219,10 +225,20 @@ export default {
                 this.datesListLength = Object.keys(this.datesList).length
                 this.currentGroup = Object.keys(this.layer_list.time).indexOf(layerName)
             }
+
+            $('.metadata-panel').addClass('active');
+            $('.metadata-panel').css('display','block');      
+            if (layerType=='time'){
+                $('.time-panel').addClass('active');
+                $('.time-panel').css('display','block');
+                $('.show-metadata').addClass('active');
+                $('.show-time').addClass('active');
+            }   
         },
         downloadData() {
             // TODO: install CSW extension to GeoServer for allowing the download of datasets. For now, it is possible to download as georeferenced images using the WMS server.
-        }
+        },
+        
     },
     mounted() {
         // Settings
@@ -238,11 +254,26 @@ export default {
                 let layers_groups = createLayerGroups(layers_dict)
                 this.layer_list = layers_dict
                 this.layer_group = layers_groups
-                return {layers_groups, layers_dict}
+                // No repetition check to layers groups
+                let layers_dict_reduced = {} 
+                for (let [group,collection] of Object.entries(layers_dict['time'])) {
+                    let groupName = group.split('_').splice(0,2).join('_');
+                    if (groupName in Object.keys(layers_dict_reduced)) {
+                        
+                    } else {
+                        layers_dict_reduced[groupName] = collection
+                    }
+                    
+                }
+                this.layer_list['time'] = layers_dict_reduced
+                layers_dict_reduced = this.layer_list
+                let layers_groups_reduced = createLayerGroups(layers_dict_reduced)
+                console.log(layers_dict_reduced);
+                return {layers_groups_reduced, layers_dict_reduced}
             })
             .then(response=> {
-                const layers_groups = response.layers_groups;
-                const layers_dict = response.layers_dict;
+                const layers_groups = response.layers_groups_reduced;
+                const layers_dict = response.layers_dict_reduced;
                 const map = addMap()
                 for (let key in layers_groups) {
 		            for (let group in layers_groups[key]){;
@@ -287,6 +318,7 @@ export default {
                     const pixel = map.getEventPixel(evt.originalEvent);
                     // Array for the request of data in time
                     let temp_array = []
+                    this.noGetinfo = 0;
                     map.forEachLayerAtPixel(pixel, function (layer,rgba) {
                         if(layer.title != "basemap"){
                             var url = layer.values_.source.getFeatureInfoUrl(
@@ -296,15 +328,18 @@ export default {
                                 {'INFO_FORMAT': 'application/json'}
                             );
                             if (url) {
+                                console.log(layer);
                                 fetch(url)
                                 .then((response) => response.json())
                                 .then((html) => {
-                                    popupPixelInfo.innerHTML = '<p>Value: </p><code>' + html.features[0].properties["GRAY_INDEX"].toFixed(2) + '</code>'; 
-                                    popupTitle.innerHTML = layer.values_.source.params_.LAYERS.split(':')[1];
+                                    popupPixelInfo.innerHTML = '<p>Value: </p><code>' + html.features[0].properties["GRAY_INDEX"].toFixed(2) + ' ' + layer.units + '</code>'; 
+                                    popupTitle.innerHTML = '<p>'+layer.name.split('_').splice(0,2).join('_')+':' +layer.date+'</p>';
                                 });
 
                                 // Implementing the requests for building the plot
-                                let currentLayerList = layers_dict[layer.title][layer.name].layer
+                                let layerName = layer.name.split('_').splice(0,2).join('_')
+                                let layerCRS = layer.name.split('_')[2]//Taking the first element matching the criteria; include a condition for the CRS
+                                let currentLayerList = layers_dict[layer.title][layerName].layer
                                 currentLayerList.forEach(layer => {
                                     var asdf = layer.values_.source.getFeatureInfoUrl(
                                         evt.coordinate,
@@ -315,19 +350,25 @@ export default {
                                     let a = fetch(asdf)
                                     .then((response) => response.json())
                                     .then((html) => {
-                                        let v = html.features[0].properties["GRAY_INDEX"]
-                                        if (v != null) {
-                                            let obs = {
-                                                'Date': layer.date,
-                                                'Value': v.toFixed(2)
+                                        let c = html.features[0]                                        
+                                        if (c != undefined) {
+                                            let v = c.properties["GRAY_INDEX"]
+                                            if (v != undefined) {
+                                                let obs = {
+                                                    'Date': layer.date,
+                                                    'Value': v.toFixed(2)
+                                                }
+                                                return obs
                                             }
-                                            return obs
+
                                         }
                                     })
                                     temp_array.push(a)
                                 })
+                                plotData(temp_array)
                             }
-                            console.log(temp_array);
+                            // Array of time series getFeature
+                            // console.log(temp_array);
                         } else {
                             popupPixelInfo.innerHTML = '<p>Value: </p><code>' + 'N/A' + '</code>'; 
                             popupTitle.innerHTML = 'Click on a layer';

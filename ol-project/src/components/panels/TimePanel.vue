@@ -65,19 +65,16 @@ export default {
             required: true,
         },
         currentDateIndex: {
-            type: String,
+            type: Number,
             required: true,
         },
         currentGroup: {
-            type: String,
+            type: Number,
             required: true,
         },
 	},
     data () {
         return {
-            // TODO emit the currentDate values to set the visibility of the layers
-            // cDate : this.currentDate,
-            // cDateIndex : this.currentDateIndex
         }
     },
     methods:{
