@@ -219,8 +219,11 @@ function createLayerGroups(organizedLayers){
 }
 
 function plotData(arr_data) {
+
     arr_data.forEach(element => {
-        console.log(element['Date'],element['Value']);
+        element.then(result=>{
+            
+        })
     });
 }
 

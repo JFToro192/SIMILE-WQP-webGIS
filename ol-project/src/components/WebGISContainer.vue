@@ -214,8 +214,18 @@ export default {
                 this.abstract = this.settings.typology[tplg].abstract
                 this.units = this.settings.typology[tplg].units
                 this.crs = layer.crs
-                this.legend = layer.layer[0].values_.source.getLegendUrl();
-                // this.legend = '../../../src/assets/img/legends/chl.png'
+                // Default legend from source folder
+                if (this.typology == 'CHL'){
+                    this.legend = '../../src/assets/img/legend/chl_legend.png'
+                } else if (this.typology == 'TSM') {
+                    this.legend = '../../src/assets/img/legend/tsm_legend.png'
+                } else {
+                    this.legend = '../../src/assets/img/legend/lswt_legend.png'
+                }
+
+                // Get Legend from wms server
+                // this.legend = layer.layer[0].values_.source.getLegendUrl();
+                
                 this.to = timeFormat[0]
                 this.tf = timeFormat[timeFormat.length-1]
                 // Initialize the variables for the time control

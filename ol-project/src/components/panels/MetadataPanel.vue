@@ -13,7 +13,12 @@
                     <div class="meta-details-tstart"><strong>Time Start:</strong><br>{{to}}</div>
                     <div class="meta-details-tend"><strong>Time end:</strong><br>{{tf}}</div>
                 </div>
-                <div class="meta-legend"><strong>Legend:</strong><img :src="legend" alt=""></div>
+                <div class="meta-legend">
+                    <div><strong>Legend:</strong></div>
+                    <div class="meta-legend-image">
+                        <img :src="legend" alt="">
+                    </div>
+                </div>
             </div>
         </div>
 </template>
@@ -92,7 +97,7 @@ export default {
         margin:0;
     }
 
-    h6{
+    h6,p{
         font-size: 14px;
         padding:0;
         margin:0;        
@@ -101,13 +106,11 @@ export default {
 
 .panel-title{
     width: 100%;
-    height: 15%;
     text-align: center;
 }
 
 .meta-title{
     width: 100%;
-    height: 10%;
     text-align: center;
 }
 
@@ -121,21 +124,31 @@ export default {
 .meta-info{
     display: inline-flex;
     width: 100%;
-    height: 35%;
+    height: 45%;
     border-radius: 4px;
     overflow-y: auto;
 }
 
 .meta-details{
     width: 50%;
-    height:35vh;
+    height:30vh;
     background: rgba($tertiary-bg-color,0.5);
 }
 
 .meta-legend{
     position: relative;
     width: 50%;
-    height:35vh;
+    height:30vh;
     background: rgba($tertiary-bg-color,0.5);  
+    overflow-y: auto;
+
+    img{
+        width: 50%;
+    }
+
+    &-image{
+        display:flex;
+        justify-content: center;
+    }
 }
 </style>
