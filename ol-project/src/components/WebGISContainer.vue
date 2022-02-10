@@ -71,6 +71,10 @@ import BasemapPanel from './panels/BasemapPanel.vue'
 import PlotPanel from './panels/PlotPanel.vue'
 import SlidePanel from './panels/SlidePanel.vue'
 import PopUp from './panels/PopUp.vue'
+//Import legend images
+import chl_legend from 'img/legend/chl_legend.png'
+import tsm_legend from 'img/legend/tsm_legend.png'
+import lswt_legend from 'img/legend/lswt_legend.png'
 // Handle the request
 import axios from "axios"
 // XML parser
@@ -216,11 +220,11 @@ export default {
                 this.crs = layer.crs
                 // Default legend from source folder
                 if (this.typology == 'CHL'){
-                    this.legend = '../../src/assets/img/legend/chl_legend.png'
+                    this.legend = chl_legend
                 } else if (this.typology == 'TSM') {
-                    this.legend = '../../src/assets/img/legend/tsm_legend.png'
+                    this.legend = tsm_legend
                 } else {
-                    this.legend = '../../src/assets/img/legend/lswt_legend.png'
+                    this.legend = lswt_legend
                 }
 
                 // Get Legend from wms server
