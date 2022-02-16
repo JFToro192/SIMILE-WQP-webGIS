@@ -1,8 +1,12 @@
 "use strict";
 
 const settings = {
-    urlWMS: "http://127.0.0.1/geoserver/geonode/wms",
-    urlWMSget: "http://127.0.0.1/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities",
+    urlWMS: "http://www.geonode.eo.simile.polimi.it//geoserver/geonode/wms",
+    urlWMSget: "http://www.geonode.eo.simile.polimi.it//geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities",
+    // urlWMS: process.env.SITE_URL+"geoserver/geonode/wms"||"http://127.0.0.1/geoserver/geonode/wms",
+    // urlWMSget: process.env.SITE_URL+"geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities"||"http://127.0.0.1/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities",
+    // urlWMS: "http://127.0.0.1/geoserver/geonode/wms",
+    // urlWMSget: "http://127.0.0.1/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities",
     typology:{
         CHL:{
             title:"Chlorophyll-a",

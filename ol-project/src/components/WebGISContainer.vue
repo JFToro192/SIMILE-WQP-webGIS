@@ -404,7 +404,7 @@ export default {
                     map.getTargetElement().style.cursor = hit ? 'pointer' : '';
                 });
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log("No layers have been found in the site url: "+process.env.SITE_URL))
 
     }
 }

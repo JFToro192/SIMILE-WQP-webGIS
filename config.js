@@ -1,4 +1,6 @@
 module.exports = {
+    SITE_URL: process.env.SITE_URL,
+    WEBGIS_PORT: process.env.WEBGIS_PORT||3000,
     MONGO_IP: process.env.MONGO_IP || "mongo-simile",
     MONGO_PORT: process.env.MONGO_PORT || 27017,
     MONGO_USER: process.env.MONGO_USER,

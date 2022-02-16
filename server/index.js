@@ -8,6 +8,7 @@ require("dotenv").config()
 
 
 const { 
+    SITE_URL,
     MONGO_USER, 
     MONGO_PASSWORD, 
     MONGO_IP, 
@@ -90,5 +91,6 @@ app.get(/.*/, (req,res) => res.sendFile(__dirname + '/public/index.html'))
 app.use("/api/v1/posts",postRouter)
 app.use("/api/v1/users",userRouter)
 const port = process.env.PORT || 3000;
+const site_url = process.env.SITE_URL || "localhost";
 
-app.listen(port, () => console.log(`listening on port ${port}`));
+app.listen(port, () => console.log(`listening on port ${port}, ${site_url}`));
