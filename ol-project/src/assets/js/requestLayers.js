@@ -2,7 +2,7 @@ import axios from "axios"
 import WMSCapabilities from 'ol/format/WMSCapabilities';
 // Import OL functions
 import {Group as LayerGroup, Tile as TileLayer} from 'ol/layer';
-import TileWMS from 'ol/source/TileWMS';
+import TileWMS from 'ol/source/TileWMS'; 
 // Import OL basemap sources
 import OSM from 'ol/source/OSM';
 import Stamen from 'ol/source/Stamen';
@@ -17,7 +17,9 @@ function getLayersWMS(urlWMS) {
         let group = organizeLayers(layers)
         return group
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+        console.log(err)
+    })
 }
 
 function createTileWMS(layerName, url,opacityValue,styleValue) {
