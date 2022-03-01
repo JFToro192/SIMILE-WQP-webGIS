@@ -26,12 +26,12 @@ export default {
         title: {
             type: String,
             required: true,
-            default:'Select Layer'
+            default:'Select layer'
         },
         evtCoordinate: {
             type: String,
             required: true,
-            default:'Select Layer'
+            default:'Select layer'
         },
         pixelCoordinate: {
             type: String,
