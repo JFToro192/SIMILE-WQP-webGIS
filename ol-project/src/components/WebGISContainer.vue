@@ -263,6 +263,7 @@ export default {
                 // Parsing Get Capabilities
                 let capabilities = parser.read(response.data)
                 let layers = capabilities.Capability.Layer.Layer
+                console.log(response);
                 let layers_dict = organizeLayers(layers,this.settings.typology,this.settings.urlWMS)
                 basemapLayers(layers_dict)
                 // TODO: merge dict functions
