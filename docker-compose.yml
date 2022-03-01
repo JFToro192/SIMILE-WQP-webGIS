@@ -4,7 +4,7 @@ services:
     build: .
     container_name: node4${COMPOSE_PROJECT_NAME}
     ports:
-      - 3000:${WEBGIS_PORT}
+      - 8083:${WEBGIS_PORT}
     environment:
       - PORT=${WEBGIS_PORT}
       - ENVIRONMENT=${NODE_ENV}
