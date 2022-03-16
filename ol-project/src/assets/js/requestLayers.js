@@ -84,6 +84,8 @@ function organizeLayers(layers,typologies,url) {
     if (tp.includes(item.typology)) {
         styleValue = item.typology.toLowerCase()
     }
+    console.log(styleValue);
+    console.log(url);
     item.layer = createTileWMS(element.Name,url,0.5,styleValue)       
 
     // Assign the items into the corresponding category

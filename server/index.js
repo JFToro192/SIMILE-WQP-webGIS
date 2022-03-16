@@ -42,10 +42,16 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const cors = require("cors");
 
 var corsOptions = {
-    origin: `http://localhost:${process.env.PORT}`
+    origin:'*'
+    // origin: `http://localhost:${process.env.PORT}`
+    // origin:process.env.SITE_URL, 
+    // credentials:true,            //access-control-allow-credentials:true
+    // optionSuccessStatus:200
   }
 // use cors options
 app.use(cors(corsOptions))
+
+app.get('',)
 
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
 
@@ -85,7 +91,6 @@ app.use(
     })
   )
 
-console.log(__dirname);
 app.use(express.static(__dirname +'/public/'))
 app.get(/.*/, (req,res) => res.sendFile(__dirname + '/public/index.html'))
 app.use("/api/v1/posts",postRouter)

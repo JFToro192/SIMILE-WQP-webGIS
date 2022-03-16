@@ -86,7 +86,6 @@ import {toStringHDMS} from 'ol/coordinate';
 import Overlay from 'ol/Overlay';
 import ImageWMS from 'ol/source/ImageWMS';
 
-
 export default {
     name: "WebGISContainer",
     data () {
@@ -260,6 +259,7 @@ export default {
         this.basemap_settings = this.settings.basemaps
         axios.get(this.settings.urlWMSget)
             .then(response => {
+                console.log(response)
                 // Parsing Get Capabilities
                 let capabilities = parser.read(response.data)
                 let layers = capabilities.Capability.Layer.Layer
