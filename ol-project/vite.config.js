@@ -20,6 +20,6 @@ export default defineConfig({
   },
   server: {
     // Dev port
-    proxy: 'https://www.geonode.eo.simile.polimi.it/'
+    proxy:'https://www.geonode.eo.simile.polimi.it/'
   },
 })

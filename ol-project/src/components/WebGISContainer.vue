@@ -163,7 +163,6 @@ export default {
                         this.currentDate = layer.date
                     }
                 });
-                console.log(this.currentDate);
                 // Visibility on/off only for the last layer of the group
     
             }
@@ -259,11 +258,9 @@ export default {
         this.basemap_settings = this.settings.basemaps
         axios.get(this.settings.urlWMSget)
             .then(response => {
-                console.log(response)
                 // Parsing Get Capabilities
                 let capabilities = parser.read(response.data)
                 let layers = capabilities.Capability.Layer.Layer
-                console.log(response);
                 let layers_dict = organizeLayers(layers,this.settings.typology,this.settings.urlWMS)
                 basemapLayers(layers_dict)
                 // TODO: merge dict functions
@@ -284,7 +281,6 @@ export default {
                 this.layer_list['time'] = layers_dict_reduced
                 layers_dict_reduced = this.layer_list
                 let layers_groups_reduced = createLayerGroups(layers_dict_reduced)
-                console.log(layers_dict_reduced);
                 return {layers_groups_reduced, layers_dict_reduced}
             })
             .then(response=> {

@@ -28,6 +28,7 @@ let redisClient = redis.createClient({
 
 const postRouter = require("./routes/postRoutes")
 const userRouter = require("./routes/userRoutes")
+const layers = require("./routes/layers")
 
 const app = express()
 
@@ -50,8 +51,6 @@ var corsOptions = {
   }
 // use cors options
 app.use(cors(corsOptions))
-
-app.get('',)
 
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
 
@@ -91,10 +90,11 @@ app.use(
     })
   )
 
-app.use(express.static(__dirname +'/public/'))
-app.get(/.*/, (req,res) => res.sendFile(__dirname + '/public/index.html'))
 app.use("/api/v1/posts",postRouter)
 app.use("/api/v1/users",userRouter)
+app.use('/api/layers', layers)
+app.use(express.static(__dirname +'/public/'))
+app.get(/.*/, (req,res) => res.sendFile(__dirname + '/public/index.html'))
 const port = process.env.PORT || 3000;
 const site_url = process.env.SITE_URL || "localhost";
 

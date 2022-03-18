@@ -281,7 +281,7 @@ class GeonodeControl extends Control {
     const options = opt_options || {};
 
     const button = document.createElement('button');
-    button.innerHTML = '<a href="http://127.0.0.1/"><i class="bi bi-people-fill"></i></a>';
+    button.innerHTML = '<a href="https://www.geonode.eo.simile.polimi.it/"><i class="bi bi-people-fill"></i></a>';
     button.src = 
 
     button.title = 'GeoNode';

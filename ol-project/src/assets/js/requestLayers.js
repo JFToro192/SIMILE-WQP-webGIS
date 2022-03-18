@@ -25,7 +25,7 @@ function getLayersWMS(urlWMS) {
 function createTileWMS(layerName, url,opacityValue,styleValue) {
     let tileWMS = new TileLayer({
         source: new TileWMS({
-        url: url,
+        url: 'https://www.geonode.eo.simile.polimi.it/geoserver/geonode/wms',
         params: {'LAYERS': layerName, 'TILED': true, 'STYLES':styleValue},
         crossOrigin: 'anonymous',
         serverType: 'geoserver',
@@ -84,8 +84,6 @@ function organizeLayers(layers,typologies,url) {
     if (tp.includes(item.typology)) {
         styleValue = item.typology.toLowerCase()
     }
-    console.log(styleValue);
-    console.log(url);
     item.layer = createTileWMS(element.Name,url,0.5,styleValue)       
 
     // Assign the items into the corresponding category

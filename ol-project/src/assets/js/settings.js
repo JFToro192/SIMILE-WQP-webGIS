@@ -1,8 +1,8 @@
 "use strict";
 
 const settings = {
-    urlWMS: "http://localhost:8084/geoserver/geonode/wms",
-    urlWMSget: "http://localhost:8084/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities",
+    urlWMS: "https://www.geonode.eo.simile.polimi.it/geoserver/geonode/wms",
+    urlWMSget: "http://localhost:3000/api/layers",
     typology:{
         CHL:{
             title:"Chlorophyll-a",
