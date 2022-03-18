@@ -340,7 +340,7 @@ export default {
                                 {'INFO_FORMAT': 'application/json'}
                             );
                             if (url) {
-                                console.log(layer);
+                                console.log(url);
                                 fetch(url)
                                 .then((response) => response.json())
                                 .then((html) => {

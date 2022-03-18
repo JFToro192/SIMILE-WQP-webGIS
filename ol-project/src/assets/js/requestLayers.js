@@ -25,9 +25,9 @@ function getLayersWMS(urlWMS) {
 function createTileWMS(layerName, url,opacityValue,styleValue) {
     let tileWMS = new TileLayer({
         source: new TileWMS({
-        url: 'https://www.geonode.eo.simile.polimi.it/geoserver/geonode/wms',
+        url: url,
         params: {'LAYERS': layerName, 'TILED': true, 'STYLES':styleValue},
-        crossOrigin: 'anonymous',
+        // crossOrigin: 'anonymous',
         serverType: 'geoserver',
         }),
         visible:false,

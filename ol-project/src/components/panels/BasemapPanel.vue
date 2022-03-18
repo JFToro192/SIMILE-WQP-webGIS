@@ -77,7 +77,6 @@ export default {
     bottom: 2.25em;
     left: 2.5em;
     width: auto;
-    height: 150px;
     text-align: center;
         
     p{
@@ -106,7 +105,7 @@ export default {
         img{
             position: relative;
             top:-20px;
-            width: 15vw;
+            width: 100%;
         }
     }
 }
