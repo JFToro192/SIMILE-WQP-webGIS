@@ -21,7 +21,7 @@ export default defineConfig({
   server: {
     // Dev port
     proxy:{
-      '/api':'http://localhost:3000',
+      '/api':'https://www.webgis.eo.simile.polimi.it/',
     }
   },
 })

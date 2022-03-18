@@ -2,7 +2,7 @@
 
 const settings = {
     urlWMS: "https://www.geonode.eo.simile.polimi.it/geoserver/geonode/wms",
-    urlWMSget: "http://localhost:3000/api/layers",
+    urlWMSget: "https://www.webgis.eo.simile.polimi.it/api/layers",
     typology:{
         CHL:{
             title:"Chlorophyll-a",
