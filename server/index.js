@@ -43,7 +43,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const cors = require("cors");
 
 var corsOptions = {
-    origin:'*'
+    // origin:'https://www.geonode.eo.simile.polimi.it/',
     // origin: `http://localhost:${process.env.PORT}`
     // origin:process.env.SITE_URL, 
     // credentials:true,            //access-control-allow-credentials:true
@@ -94,7 +94,7 @@ app.use("/api/v1/posts",postRouter)
 app.use("/api/v1/users",userRouter)
 app.use('/api/layers', layers)
 app.use(express.static(__dirname +'/public/'))
-app.get(/.*/, (req,res) => res.sendFile(__dirname + '/public/index.html'))
+app.get(/.*/,(req,res) => res.sendFile(__dirname + '/public/index.html'))
 const port = process.env.PORT || 3000;
 const site_url = process.env.SITE_URL || "localhost";
 
