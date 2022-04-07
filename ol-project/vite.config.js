@@ -19,9 +19,13 @@ export default defineConfig({
     },
   },
   server: {
-    // Dev port
-    proxy:{
-      '/api':'https://www.webgis.eo.simile.polimi.it/',
+    proxy: {
+        //Focus here
+        '/geoserver': {
+            target: "https://www.geonode.eo.simile.polimi.it/",
+            changeOrigin: true,
+            rewrite: (path) => { console.log(path); return path.replace('/^\/geoserver/geonode', '') }
+        }
     }
-  },
+  }
 })

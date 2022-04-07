@@ -339,9 +339,10 @@ export default {
                                 'EPSG:3857',
                                 {'INFO_FORMAT': 'application/json'}
                             );
+                            var  url = '/geoserver/' + url.split('/')[url.split('/').length-1]
                             if (url) {
-                                console.log(url);
-                                fetch(url)
+                                const myRequest = new Request(url);
+                                fetch(myRequest)
                                 .then((response) => response.json())
                                 .then((html) => {
                                     popupPixelInfo.innerHTML = '<p>Value: </p><code>' + html.features[0].properties["GRAY_INDEX"].toFixed(2) + ' ' + layer.units + '</code>'; 
@@ -359,6 +360,7 @@ export default {
                                         'EPSG:3857',
                                         {'INFO_FORMAT': 'application/json'}
                                     );
+                                    var  asdf = '/geoserver/' + url.split('/')[url.split('/').length-1]
                                     let a = fetch(asdf)
                                     .then((response) => response.json())
                                     .then((html) => {
