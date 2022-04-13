@@ -5,7 +5,8 @@ const mongodb = require('mongodb');
 require('dotenv').config()
 
 const router = express.Router();
-const API_BASE_URL = process.env.SITE_URL+ "/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities"
+// const API_BASE_URL = process.env.SITE_URL+ "/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities"
+const API_BASE_URL = "https://www.geonode.eo.simile.polimi.it/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities"
 //Get Layers
 router.get('/', (req, res) => {
     // let endpoint = `${process.env.SITE_URL}/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities`
