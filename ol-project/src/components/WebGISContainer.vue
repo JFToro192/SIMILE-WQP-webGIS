@@ -342,7 +342,6 @@ export default {
                                 {'INFO_FORMAT': 'application/json'}
                             );
                             var  url = "https://www.webgis.eo.simile.polimi.it/api/getLayerInfo?" + url.split('/')[url.split('/').length-1].split('?')[1]
-                            console.log(url);
                             if (url) {
                                 const myRequest = new Request(url);
                                 fetch(myRequest)
