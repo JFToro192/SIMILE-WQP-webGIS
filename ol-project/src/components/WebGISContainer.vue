@@ -91,6 +91,7 @@ export default {
     data () {
         return {
             basemap_settings: this.settings.basemaps,
+            urlLayerInfo: this.settings.urlWMSLayerInfo,
             layer_list: {},
             layer_groups: {},
             map: {},
@@ -322,6 +323,7 @@ export default {
                 map.addControl(popupOverlay)
                 const view = this.map.getView();
                 const viewResolution = /** @type {number} */ (view.getResolution());
+                console.log(this.urlLayerInfo);
                 map.on('singleclick', function (evt) {
                     const coord = evt.coordinate;
                     const hdms = toStringHDMS(toLonLat(coord));
@@ -339,13 +341,14 @@ export default {
                                 'EPSG:3857',
                                 {'INFO_FORMAT': 'application/json'}
                             );
-                            var  url = '/geoserver/' + url.split('/')[url.split('/').length-1]
+                            var  url = "https://www.webgis.eo.simile.polimi.it/api/getLayerInfo?" + url.split('/')[url.split('/').length-1].split('?')[1]
+                            console.log(url);
                             if (url) {
                                 const myRequest = new Request(url);
                                 fetch(myRequest)
                                 .then((response) => response.json())
                                 .then((html) => {
-                                    popupPixelInfo.innerHTML = '<p>Value: </p><code>' + html.features[0].properties["GRAY_INDEX"].toFixed(2) + ' ' + layer.units + '</code>'; 
+                                    popupPixelInfo.innerHTML = '<p>Value: </p><code>' + html.data.features['0'].properties["GRAY_INDEX"].toFixed(2) + ' ' + layer.units + '</code>'; 
                                     popupTitle.innerHTML = '<p>'+layer.name.split('_').splice(0,2).join('_')+':' +layer.date+'</p>';
                                 });
 
@@ -360,11 +363,11 @@ export default {
                                         'EPSG:3857',
                                         {'INFO_FORMAT': 'application/json'}
                                     );
-                                    var  asdf = '/geoserver/' + url.split('/')[url.split('/').length-1]
+                                    var  asdf = 'https://www.webgis.eo.simile.polimi.it/api/getLayerInfo?' + url.split('/')[url.split('/').length-1].split('?')[1]
                                     let a = fetch(asdf)
                                     .then((response) => response.json())
                                     .then((html) => {
-                                        let c = html.features[0]                                        
+                                        let c = html.data.features[0]                                        
                                         if (c != undefined) {
                                             let v = c.properties["GRAY_INDEX"]
                                             if (v != undefined) {

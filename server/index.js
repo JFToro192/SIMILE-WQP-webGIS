@@ -18,17 +18,18 @@ const {
     REDIS_PORT
 } = require("../config");
 
-const redis = require('redis')
-const session = require('express-session')
-let RedisStore = require('connect-redis')(session)
-let redisClient = redis.createClient({
-    host: REDIS_URL,
-    port: REDIS_PORT
-})
+// const redis = require('redis')
+// const session = require('express-session')
+// let RedisStore = require('connect-redis')(session)
+// let redisClient = redis.createClient({
+//     host: REDIS_URL,
+//     port: REDIS_PORT
+// })
 
 const postRouter = require("./routes/postRoutes")
 const userRouter = require("./routes/userRoutes")
-const layers = require("./routes/layers")
+const layersRouter = require("./routes/getLayers")
+const layerInfoRouter = require("./routes/getFeatureInfo")
 
 const app = express()
 
@@ -52,50 +53,53 @@ var corsOptions = {
 // use cors options
 app.use(cors(corsOptions))
 
-const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
+// const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
 
-const connectWithRetry = () =>{
-    mongoose
-    .connect(mongoURL, {
-        // No longer required mongo 6.0
-        // useNewUrlParser: true,
-        // useUnifiedTopology: true,
-        // useFindAndModify: false
-    })
-    .then(() => console.log("successfully connected to DB"))
-    .catch((e) => {
-        console.log(e)
-        setTimeout(connectWithRetry,5000)
-    });
-}
+// const connectWithRetry = () =>{
+//     mongoose
+//     .connect(mongoURL, {
+//         // No longer required mongo 6.0
+//         // useNewUrlParser: true,
+//         // useUnifiedTopology: true,
+//         // useFindAndModify: false
+//     })
+//     .then(() => console.log("successfully connected to DB"))
+//     .catch((e) => {
+//         console.log(e)
+//         setTimeout(connectWithRetry,5000)
+//     });
+// }
 
-connectWithRetry();
+// connectWithRetry();
 
-app.use(express.json());
+// app.use(express.json());
 
-app.use(
-    session({
-      store: new RedisStore({ client: redisClient }),
-      secret: SESSION_SECRET,
-      saveUninitialized: false,
-      resave: false,
-    //   TODO: No cookies on response
-      cookie: { 
-          secure: false,
-          resave: false,
-          httpOnly: true,
-          maxAge: 30 * 1000,
-          saveUninitialized: false, 
-        },
-    })
-  )
+// app.use(
+//     session({
+//       store: new RedisStore({ client: redisClient }),
+//       secret: SESSION_SECRET,
+//       saveUninitialized: false,
+//       resave: false,
+//     //   TODO: No cookies on response
+//       cookie: { 
+//           secure: false,
+//           resave: false,
+//           httpOnly: true,
+//           maxAge: 30 * 1000,
+//           saveUninitialized: false, 
+//         },
+//     })
+//   )
 
 app.use("/api/v1/posts",postRouter)
 app.use("/api/v1/users",userRouter)
-app.use('/api/layers', layers)
+app.use('/api/getLayers', layersRouter)
+app.use('/api/getLayerInfo', layerInfoRouter)
+
 app.use(express.static(__dirname +'/public/'))
 app.get(/.*/,(req,res) => res.sendFile(__dirname + '/public/index.html'))
-const port = process.env.PORT || 3000;
+
+const port = process.env.PORT || 8083;
 const site_url = process.env.SITE_URL || "localhost";
 
 app.listen(port, () => console.log(`listening on port ${port}, ${site_url}`));
