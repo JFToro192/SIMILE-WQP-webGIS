@@ -1,12 +1,11 @@
 const url = require('url')
 const express = require('express')
-const router = express.Router()
 const needle = require('needle')
 
 
 // Env vars
+const router = express.Router()
 const API_BASE_URL = process.env.SITE_URL+'/geoserver/ows'
-console.log(API_BASE_URL);
 
 router.get('/', async (req,res) => {
     console.log(url.parse(req.url,true).query);
