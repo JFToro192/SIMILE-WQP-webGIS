@@ -10,15 +10,15 @@
         />
         <metadataPanel 
             :child_msg="'Metadata-Panel'"
-                :settings="settings"
-                :title="title"
-                :abstract="abstract"
-                :to="to"
-                :tf="tf"
-                :typology="typology"
-                :units="units"
-                :crs="crs"
-                :legend="legend"
+            :settings="settings"
+            :title="title"
+            :abstract="abstract"
+            :to="to"
+            :tf="tf"
+            :typology="typology"
+            :units="units"
+            :crs="crs"
+            :legend="legend"
         />
         <timePanel 
             :child_msg="'Time-Panel'"
@@ -44,8 +44,15 @@
             :settings="settings"
         />
         <plotPanel :child_msg="'Plot-Panel'"/>
-        <!-- TODO: set inputs pixelInfo, pixelUnits, pixelCoordinates -->
-        <popUp/>
+        <!-- TODO: set inputs pixelInfo, pixelUnits, pixelCoordinates; for now random values -->
+        <popUp
+            :map="map"
+            :title="title"
+            :evtCoordinate="'click-on map'"
+            :pixelCoordinate="'select a pixel'"
+            :pixelInfo="'click-on map'"
+            :pixelUnits="'select a pixel'"
+        />
     </div>
 
 </template>
@@ -105,9 +112,9 @@ export default {
             legend:"N/A",
             // Time Series Visualization Variables
             datesList:{},
-            currentGroup:'',
+            currentGroup:0,
             currentDate:'',
-            currentDateIndex:'',
+            currentDateIndex:0,
             datesListLength:'',
             noGetinfo:0,
         }
@@ -323,7 +330,6 @@ export default {
                 map.addControl(popupOverlay)
                 const view = this.map.getView();
                 const viewResolution = /** @type {number} */ (view.getResolution());
-                console.log(this.urlLayerInfo);
                 map.on('singleclick', function (evt) {
                     const coord = evt.coordinate;
                     const hdms = toStringHDMS(toLonLat(coord));
@@ -331,7 +337,7 @@ export default {
                     popupOverlay.setPosition(coord);
                     const pixel = map.getEventPixel(evt.originalEvent);
                     // Array for the request of data in time
-                    let temp_array = []
+                    let temp_array = {'values':[],'typology':''}
                     this.noGetinfo = 0;
                     map.forEachLayerAtPixel(pixel, function (layer,rgba) {
                         if(layer.title != "basemap"){
@@ -362,36 +368,34 @@ export default {
                                         'EPSG:3857',
                                         {'INFO_FORMAT': 'application/json'}
                                     );
-                                    var  asdf = 'https://www.webgis.eo.simile.polimi.it/api/getLayerInfo?' + url.split('/')[url.split('/').length-1].split('?')[1]
+                                    var  asdf = 'https://www.webgis.eo.simile.polimi.it/api/getLayerInfo?' + asdf.split('/')[asdf.split('/').length-1].split('?')[1]
                                     let a = fetch(asdf)
                                     .then((response) => response.json())
                                     .then((html) => {
                                         let c = html.data.features[0]                                        
                                         if (c != undefined) {
                                             let v = c.properties["GRAY_INDEX"]
-                                            if (v != undefined) {
+                                            if (v != null) {
                                                 let obs = {
-                                                    'Date': layer.date,
-                                                    'Value': v.toFixed(2)
+                                                    'month': layer.date.toString(),
+                                                    'count': Number(v.toFixed(2))
                                                 }
                                                 return obs
                                             }
-
                                         }
                                     })
-                                    temp_array.push(a)
+                                    temp_array['values'].push(a)
                                 })
+                                temp_array['typology']=layers_dict[layer.title][layerName].typology;
                                 plotData(temp_array)
                             }
                             // Array of time series getFeature
-                            // console.log(temp_array);
                         } else {
                             popupPixelInfo.innerHTML = '<p>Value: </p><code>' + 'N/A' + '</code>'; 
                             popupTitle.innerHTML = 'Click on a layer';
                         }
                     });
                 });
-
                 // Cursor behaviour on hoover (active layers, NOT basemaps)
                 map.on('pointermove', function (evt) {
                 if (evt.dragging) {
@@ -407,7 +411,6 @@ export default {
                 });
             })
             .catch(err => console.log("No layers have been found in the site url"))
-
     }
 }
 </script>

@@ -8,6 +8,8 @@ import OSM from 'ol/source/OSM';
 import Stamen from 'ol/source/Stamen';
 // XML parser
 const parser = new WMSCapabilities();
+// Import plotting function
+import { tsPlot } from "./tsPlot";
 
 function getLayersWMS(urlWMS) {
     axios.get(urlWMS)
@@ -221,11 +223,18 @@ function createLayerGroups(organizedLayers){
 }
 
 function plotData(arr_data) {
-
-    arr_data.forEach(element => {
-        element.then(result=>{
-            
-        })
+    // Remove previous plot
+    var div = document.querySelector('.metric-chart');
+    try {
+        div.remove()
+    } catch (error) {
+        console.warn('no chart');
+        // expected output: ReferenceError: nonExistentFunction is not defined
+        // Note - error messages will vary depending on browser
+    }
+    // Resolve requests and print the plot
+    Promise.all(arr_data['values']).then((values) => {
+        tsPlot(values,arr_data['typology'])
     });
 }
 
