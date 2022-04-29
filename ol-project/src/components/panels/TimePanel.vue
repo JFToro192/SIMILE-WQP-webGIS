@@ -1,6 +1,6 @@
 <template>
         <div id="timePanel" class="time-panel ol-unselectable ol-control">
-            <p>{{child_msg}}</p>
+            <div class="panel-title">{{child_msg}}</div>
             <div class="time-container">
                 <div class="time-header"><strong>{{title}}</strong></div>
                 <div class="time-controls">

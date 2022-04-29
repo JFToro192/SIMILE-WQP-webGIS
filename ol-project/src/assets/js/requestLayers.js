@@ -228,7 +228,7 @@ function plotData(arr_data) {
     try {
         div.remove()
     } catch (error) {
-        console.warn('no chart');
+        // console.warn('no chart');
         // expected output: ReferenceError: nonExistentFunction is not defined
         // Note - error messages will vary depending on browser
     }

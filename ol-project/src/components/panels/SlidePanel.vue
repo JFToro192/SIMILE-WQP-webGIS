@@ -1,6 +1,6 @@
 <template>
         <div id="slidePanel" class="slide-panel ol-unselectable ol-control" style="display:none">
-            {{child_msg}}
+            <div class="panel-title">{{child_msg}}</div>
             <div class="slidepanel-show">
                 <carousel-container
                     @prev="prev"
@@ -14,7 +14,15 @@
                         >
                         <div class="slide-title">{{slide.title}}</div>
                         <div class="slide-description">{{slide.description}}</div>
-                        <img :src="getImage(slide.src)" :alt="index">
+                        <div class="slide-illustration">
+                            <div class="slide-image">
+                                <img :src="getImage(slide.src)" :alt="index">
+                            </div>
+                            <div class="slide-details">
+                                {{slide.details}}
+                            </div>
+                        </div>
+                        
                     </carousel-slide>
                 </carousel-container>
             </div>
@@ -31,6 +39,8 @@ import i4 from 'img/slides/i4.png'
 import i5 from 'img/slides/i5.png'
 import i6 from 'img/slides/i6.png'
 import i7 from 'img/slides/i7.png'
+import i8 from 'img/slides/i8.png'
+import i9 from 'img/slides/i9.png'
 
 // Import slide-show components
 import CarouselContainer from './slideShow/CarouselContainer.vue'
@@ -90,6 +100,10 @@ export default {
 				return i6
 			} else if (name=="i7.png") {
 				return i7
+			} else if (name=="i8.png") {
+				return i8
+			} else if (name=="i9.png") {
+				return i9
 			}
 		}
     },
@@ -110,16 +124,11 @@ export default {
     justify-content: center;
     position: absolute;
     bottom: 25vh;
-    left: 25vw;
-    width: 50vw;
-    height: 50vh;
+    left: 30vw;
+    width: 40vw;
+    height: 55vh;
     z-index: 1;
     border:$border-rad;
-    img {
-        width: 100%;
-        height: 100%;
-        border:$border-rad;
-    }
 }
 
 .slide-title{
@@ -127,6 +136,39 @@ export default {
     width: 100%;
     text-align: center;
 }
+
+.slide-description{
+    height: 15%;
+    width: 100%;
+    text-align: justify;
+    overflow:auto;
+}
+
+.slide-illustration{
+    display: inline-flex;
+    width: 100%;
+    height: 75%;
+
+    .slide-image {
+        text-align: center;
+        margin-left: 25px;
+        width: 60%;
+        height: 100%;
+        img {
+            width: 100%;
+            height:auto;
+        }
+    }
+    
+    .slide-details {
+        width: 40%;
+        height: 100%;
+        margin-right: 25px;
+        overflow:auto;
+
+    }
+}
+
 
 .slidepanel-show{
     display:flex;

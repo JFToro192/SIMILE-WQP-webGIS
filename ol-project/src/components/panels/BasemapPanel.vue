@@ -1,6 +1,6 @@
 <template>
     <div id="basemapPanel" class="basemap-panel ol-unselectable ol-control">
-        <p>{{child_msg}}</p>
+        <div class="panel-title">{{child_msg}}</div>
 		<div class="basemap-container">
 			<div v-for="(basemap,index) in data" :key="basemap.layer"
 				class="basemap-container_item">

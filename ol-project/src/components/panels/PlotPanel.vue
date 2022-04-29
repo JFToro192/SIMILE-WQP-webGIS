@@ -30,7 +30,7 @@ export default {
     bottom: 0.5em;
     left: 10em;
     width: 700px;
-    height: 415px;
+    height: 425px;
 }
 
 #plotPanel{

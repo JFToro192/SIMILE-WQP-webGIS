@@ -24,3 +24,11 @@ button{
         background: $primary-bg-color !important;
     }
 }
+
+.panel-title{
+    background-color: $secondary-bg-color;
+    border-radius: 4px 4px 0 0;
+    text-align: center;
+    font-weight: bold;
+    color: $secondary-font-color;
+}

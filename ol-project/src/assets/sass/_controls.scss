@@ -58,6 +58,11 @@
     top: 80px;
 }
 
+.ol-scale-line{
+    background: $primary-bg-color;
+    opacity: 0.5;
+}
+
 // .show-social {
 //     top: 275px;
 //     left: .5em;
@@ -90,6 +95,7 @@
 //         display: inline-block;
 //     }
 // }
+
 .ol-touch .show-about {
     top: 80px;
 }

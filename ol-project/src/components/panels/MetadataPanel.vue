@@ -4,7 +4,7 @@
             <div class="meta-title">
                 <h6>{{title}}</h6>
             </div>
-            <div class="meta-abstract"><strong>Abstract:</strong>{{abstract}}</div>
+            <div class="meta-abstract"><!--<strong>Abstract:</strong>-->{{abstract}}</div>
             <div class="meta-info"> 
                 <div class="meta-details">
                     <div class="meta-details-typology"><strong>Typology:</strong>{{typology}}</div>
@@ -143,7 +143,7 @@ export default {
     overflow-y: auto;
 
     img{
-        width: 50%;
+        width: 12em;
     }
 
     &-image{

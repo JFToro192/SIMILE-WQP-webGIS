@@ -1,6 +1,6 @@
 <template>
         <div id="layerPanel" class="layer-panel ol-unselectable ol-control">
-            {{child_msg}}
+            <div class="panel-title">{{child_msg}}</div>
             <h6 class="static-layers-title"><i class="bi bi-arrow-right"></i>Static Layers</h6>
             <div class="static-layers active" id="staticLayers">
                 <div class="static-layer layer-list" v-for="(layer,key,index) in layer_list.static" :key="layer.static">
@@ -14,7 +14,7 @@
                                     v-on:change="setLayerVisible($event,1,index,'static',{key})">
                         </div>
                         <div class="title-layer"><p v-bind:title="key">{{key}}</p></div>
-                        <div class="dwnld-layer"><i class="bi bi-box-arrow-down"></i></div>
+                        <!-- <div class="dwnld-layer"><i class="bi bi-box-arrow-down"></i></div> -->
                         <div    class="info-layer"
                                 v-on:click="setLayerMetadata('static',{key})"><i class="bi bi-info-square"></i>
                         </div>
@@ -45,7 +45,7 @@
                                     v-on:change="setLayerVisible($event,2,index,'time',{key})">
                         </div>
                         <div class="title-layer"><p v-bind:title="key">{{key}}</p></div>
-                        <div class="dwnld-layer"><i class="bi bi-box-arrow-down"></i></div>
+                        <!-- <div class="dwnld-layer"><i class="bi bi-box-arrow-down"></i></div> -->
                         <div    class="info-layer"
                                 v-on:click="setLayerMetadata('time',{key})"
                                 ><i class="bi bi-info-square"></i>
