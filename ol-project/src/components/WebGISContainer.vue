@@ -375,7 +375,7 @@ export default {
                                         let c = html.data.features[0]                                        
                                         if (c != undefined) {
                                             let v = c.properties["GRAY_INDEX"]
-                                            if (v != null) {
+                                            if (v != null && v > 0) {
                                                 let obs = {
                                                     'month': layer.date.toString(),
                                                     'count': Number(v.toFixed(2))

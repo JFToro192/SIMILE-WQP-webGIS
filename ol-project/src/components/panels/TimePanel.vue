@@ -25,11 +25,12 @@
                     <div id="time-controls-backward" class="time-controls_item ol-unselectable ol-control">
                         <button class="time-panel-control-button" @click="stepBackwards"><i class="bi bi-skip-backward-circle"></i></button>
                     </div>  
-                    <!-- <div id="time-controls-play" class="time-controls_item ol-unselectable ol-control">
-                        <div><button class="time-panel-control-button"><i class="bi bi-play-circle"></i></button></div>
+                    <div id="time-controls-play" class="time-controls_item ol-unselectable ol-control">
+                        <div><button class="time-panel-control-button" @click="printText"><i class="bi bi-play-circle"></i></button></div>
                         <div><button><i class="bi bi-pause-circle"></i></button></div>
-                    </div>  -->
-                    <div id="time-controls-forward" class="time-controls_item ol-unselectable ol-control">
+                    </div> 
+                    <div id="time-controls-forward" class="time-control
+                    s_item ol-unselectable ol-control">
                         <button class="time-panel-control-button" @click="stepForwards"><i class="bi bi-skip-forward-circle"></i></button>
                     </div>
                 </div>                
@@ -79,7 +80,6 @@ export default {
     },
     methods:{
         updateLayerSlider(evt) {
-            console.log(evt);
             let newDate = evt.target.value;
             let emitDate = parseInt(newDate);
             let nGroup = this.currentGroup + 2;
@@ -128,6 +128,11 @@ export default {
             } else {
                 alert("There are no later maps for the current layer")
             }
+        },
+        printText() {
+            setInterval(function() {
+                console.log("hello");
+            }, 5000);
         }
     },
 }
