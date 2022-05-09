@@ -110,7 +110,9 @@ export default {
     top: 0.5em;
     left: 2.5em;
     width: 30vw;
-    height: 40vh;
+    height: auto;
+    padding:2px;
+    max-height: 50vh;
     overflow-x: hidden;
     overflow-y: auto;
 
