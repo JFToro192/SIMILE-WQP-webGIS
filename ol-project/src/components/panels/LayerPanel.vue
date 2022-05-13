@@ -26,7 +26,7 @@
                                     min="0"
                                     max="1"
                                     step="0.01"
-                                    value="0.5"
+                                    value="0.8"
                                     v-on:change="setLayerOpacity($event,1,index)">
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                                     min="0"
                                     max="1"
                                     step="0.01"
-                                    value="0.5"
+                                    value="0.8"
                                     v-on:change="setLayerOpacity($event,2,index)">
                         </div>
                     </div>

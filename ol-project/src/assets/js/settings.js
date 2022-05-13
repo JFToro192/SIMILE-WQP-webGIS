@@ -7,7 +7,7 @@ const settings = {
     typology:{
         CHL:{
             title:"Chlorophyll-a",
-            abstract:"Chlorophyll-a allows plants to photosintezise. This measurement is used to classify the trophic conditionof a water body. The Chlorophyll-a maps presented have been processed using the Sentinel-3 OLCI sensor",
+            abstract:"Chlorophyll-a allows plants to photosintezise. This measurement is used to classify the trophic condition of a water body. The Chlorophyll-a maps presented have been processed using the Sentinel-3 OLCI sensor",
             style:"chl",
             units: "mg/m3",
         },

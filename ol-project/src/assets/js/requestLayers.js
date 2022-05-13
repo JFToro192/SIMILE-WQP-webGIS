@@ -188,7 +188,7 @@ function createLayerGroups(organizedLayers){
                 layersGroup.push(new LayerGroup({
                     layers: ll,
                     visible:true,
-                    opacity:0.5
+                    opacity:0.8
                 }))
             }        
         } else {
