@@ -44,7 +44,7 @@
             :child_msg="'Slide-Panel'"
             :settings="settings"
         />
-        <plotPanel :child_msg="'Plot-Panel'"/>
+        <plotPanel :child_msg="'Plot-Panel  (Click on a map to plot the WQP estimates time series)'"/>
         <!-- TODO: set inputs pixelInfo, pixelUnits, pixelCoordinates; for now random values -->
         <popUp
             :map="map"

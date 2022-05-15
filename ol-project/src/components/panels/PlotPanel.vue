@@ -11,7 +11,7 @@ export default {
 	props:{
 		child_msg: {
 			type: String,
-			default: 'Plot Panel (Click on a map to plot the WQP estimates)',
+			default: 'Plot Panel',
 		}
 	},
     data () {
