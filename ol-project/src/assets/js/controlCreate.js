@@ -37,12 +37,12 @@ class LayersControl extends Control {
     const options = opt_options || {};
 
     const button = document.createElement('button');
-    button.innerHTML = '<i class="bi bi-stack"></i>';
+    button.innerHTML = '<i class="bi bi-map"></i>';
 
     button.title = 'layers panel';
 
     const element = document.createElement('div');
-    element.className = 'show-layer ol-unselectable ol-control control-bar burger-item';
+    element.className = 'show-layer ol-unselectable ol-control control-bar burger-item active';
     element.appendChild(button);
 
     super({
@@ -114,7 +114,7 @@ class BaseMapControl extends Control {
     const options = opt_options || {};
 
     const button = document.createElement('button');
-    button.innerHTML = '<i class="bi bi-map"></i>';
+    button.innerHTML = '<i class="bi bi-stack"></i>';
 
     button.title = 'basemaps';
 

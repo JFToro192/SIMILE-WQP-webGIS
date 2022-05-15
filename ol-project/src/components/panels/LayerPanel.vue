@@ -1,5 +1,5 @@
 <template>
-        <div id="layerPanel" class="layer-panel ol-unselectable ol-control">
+        <div id="layerPanel" class="layer-panel ol-unselectable ol-control active">
             <div class="panel-title">{{child_msg}}</div>
             <h6 class="static-layers-title"><i class="bi bi-arrow-right"></i>Static Layers</h6>
             <div class="static-layers active" id="staticLayers">
@@ -106,7 +106,7 @@ export default {
 
 .layer-panel {
     position: absolute;
-    display:none;
+    // display:none;
     top: 0.5em;
     left: 2.5em;
     width: 30vw;

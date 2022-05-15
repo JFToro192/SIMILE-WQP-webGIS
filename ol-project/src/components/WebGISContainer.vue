@@ -28,6 +28,7 @@
             :currentDate="currentDate"
             :currentDateIndex="currentDateIndex"
             :currentGroup="currentGroup"
+            :isLayerActive="isLayerActive"
             @updateLayerSlider="setLayerVisibleTS"
             @updateLayerDropdown="setLayerVisibleTS"
             @stepBackwards="setLayerVisibleTS"
@@ -115,6 +116,7 @@ export default {
             currentGroup:0,
             currentDate:'',
             currentDateIndex:0,
+            isLayerActive:false,
             datesListLength:'',
             noGetinfo:0,
         }
@@ -139,6 +141,7 @@ export default {
         setLayerVisible(value) {
             let index = value.index;
             let nGroup = value.nGroup;
+            let evtType = value.evtType;
             // Static Layers Case
             if (nGroup == 0) {
                 let basemaps = this.map.getLayers().array_[nGroup].values_.layers.array_
@@ -165,10 +168,13 @@ export default {
                     if (layer.getVisible()==true && i!=lll) {
                         this.map.getLayers().array_[nGroup+index].values_.layers.array_[i].setVisible(!currentVisibilityLayer)
                         layer_check++
+                        this.isLayerActive=layer.getVisible()
                         return false
-                    } else if (layer_check==0 && i==lll) {  
+                    } else if (layer_check==0 && i==lll ) { 
                         this.map.getLayers().array_[nGroup+index].values_.layers.array_[lll].setVisible(!currentVisibilityLayer)     
                         this.currentDate = layer.date
+                        // Forward value to time panel to set the request visible only if the layer group is
+                        this.isLayerActive=layer.getVisible()
                     }
                 });
                 // Visibility on/off only for the last layer of the group
@@ -180,7 +186,6 @@ export default {
             let index = value.emitDate;
             let getLayersGroup = this.map.getLayers().array_[nGroup].values_.layers.array_
             getLayersGroup.forEach((element,i) => {
-                
                 if (index==i){
                     element.setVisible(true)
                 } else {

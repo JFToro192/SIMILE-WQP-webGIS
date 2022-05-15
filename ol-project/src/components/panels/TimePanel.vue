@@ -73,6 +73,10 @@ export default {
             type: Number,
             required: true,
         },
+        isLayerActive: {
+            type: Boolean,
+            required: true,
+        },
 	},
     data () {
         return {
@@ -80,38 +84,44 @@ export default {
     },
     methods:{
         updateLayerSlider(evt) {
-            let newDate = evt.target.value;
-            let emitDate = parseInt(newDate);
-            let nGroup = this.currentGroup + 2;
-            let dropdown = document.getElementById('dropdownDate')
-            dropdown.selectedIndex = newDate;
-            this.cDate = this.datesList[newDate];
-            this.cDateIndex = newDate;
-            this.$emit('updateLayerSlider', {nGroup, emitDate})
+            if (this.isLayerActive) {
+                let newDate = evt.target.value;
+                let emitDate = parseInt(newDate);
+                let nGroup = this.currentGroup + 2;
+                let dropdown = document.getElementById('dropdownDate')
+                dropdown.selectedIndex = newDate;
+                this.cDate = this.datesList[newDate];
+                this.cDateIndex = newDate;
+                this.$emit('updateLayerSlider', {nGroup, emitDate})
+            }
         },
         updateLayerDropdown(evt) {
-            let newDate = evt.target.value;
-            let emitDate = parseInt(newDate);
-            let nGroup = this.currentGroup + 2;
-            let slider = document.getElementById('sliderDate')
-            slider.value = newDate;
-            this.cDate = this.datesList[newDate];
-            this.cDateIndex = newDate;
-            this.$emit('updateLayerDropdown', {nGroup, emitDate})
+            if (this.isLayerActive) {
+                let newDate = evt.target.value;
+                let emitDate = parseInt(newDate);
+                let nGroup = this.currentGroup + 2;
+                let slider = document.getElementById('sliderDate')
+                slider.value = newDate;
+                this.cDate = this.datesList[newDate];
+                this.cDateIndex = newDate;
+                this.$emit('updateLayerDropdown', {nGroup, emitDate})  
+            }
         },
         stepBackwards() {
             let to = document.getElementById('sliderDate').value
             let emitDate = to - 1
             let tf = to - 1
             let nGroup = this.currentGroup + 2;
-            if (to-1>=0){
-                this.cDate = this.datesList[tf];
-                this.cDateIndex = tf;
-                document.getElementById('dropdownDate').selectedIndex = tf
-                document.getElementById('sliderDate').value = tf
-                this.$emit('updateLayerDropdown', {nGroup, emitDate})
-            } else {
-                alert("There are no previous maps for the current layer")
+            if (this.isLayerActive==true){
+                if (to-1>=0){
+                    this.cDate = this.datesList[tf];
+                    this.cDateIndex = tf;
+                    document.getElementById('dropdownDate').selectedIndex = tf
+                    document.getElementById('sliderDate').value = tf
+                    this.$emit('updateLayerDropdown', {nGroup, emitDate})
+                } else {
+                    alert("There are no previous maps for the current layer")
+                }
             }
         },
         stepForwards() {
@@ -119,21 +129,18 @@ export default {
             let emitDate = Number(to) + 1
             let tf = Number(to) + 1
             let nGroup = this.currentGroup + 2;
-            if (Number(to)+1<=this.datesListLength-1){
-                this.cDate = this.datesList[tf];
-                this.cDateIndex = tf;
-                document.getElementById('dropdownDate').selectedIndex = tf
-                document.getElementById('sliderDate').value = tf
-                this.$emit('updateLayerDropdown', {nGroup, emitDate})
-            } else {
-                alert("There are no later maps for the current layer")
+            if (this.isLayerActive == true) {
+                if (Number(to)+1<=this.datesListLength-1){
+                    this.cDate = this.datesList[tf];
+                    this.cDateIndex = tf;
+                    document.getElementById('dropdownDate').selectedIndex = tf
+                    document.getElementById('sliderDate').value = tf
+                    this.$emit('updateLayerDropdown', {nGroup, emitDate})
+                } else {
+                    alert("There are no later maps for the current layer")
+                }
             }
         },
-        printText() {
-            setInterval(function() {
-                console.log("hello");
-            }, 5000);
-        }
     },
 }
 </script>
