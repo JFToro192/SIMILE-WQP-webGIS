@@ -1,7 +1,7 @@
 <template>
         <div id="layerPanel" class="layer-panel ol-unselectable ol-control active">
             <div class="panel-title">{{child_msg}}</div>
-            <h6 class="static-layers-title"><i class="bi bi-arrow-right"></i>Static Layers</h6>
+            <!-- <h6 class="static-layers-title"><i class="bi bi-arrow-right"></i>Static Layers</h6> -->
             <div class="static-layers active" id="staticLayers">
                 <div class="static-layer layer-list" v-for="(layer,key,index) in layer_list.static" :key="layer.static">
                     <div class="layer-items">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <h6 class="time-series-layers-title"><i class="bi bi-arrow-right"></i>Time Series Layers</h6>
+            <h6 class="time-series-layers-title"><i class="bi bi-arrow-right"></i>Time Series</h6>
             <div class="time-series-layers active" id="timeSeriesLayers">
                 <div class="time-series-layer layer-list"  v-for="(layer, key, index) in layer_list.time" :key="layer.time">
                     <div class="layer-items">
@@ -89,6 +89,7 @@ export default {
             if (evt.target.checked){
                 this.setLayerMetadata(layerType, layerName)
             }
+            console.log(this.layer_list);
         },
         setLayerOpacity(evt, nGroup,index) {
             let opacity = evt.target.value;
@@ -97,7 +98,7 @@ export default {
         setLayerMetadata(layerType, layerName) {
             this.$emit('setLayerMetadata', {layerType, layerName})
         }
-    }
+    },
 }
 </script>
 

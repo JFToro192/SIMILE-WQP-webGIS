@@ -44,7 +44,7 @@
             :child_msg="'Slide-Panel'"
             :settings="settings"
         />
-        <plotPanel :child_msg="'Plot-Panel  (Click on a map to plot the WQP estimates time series)'"/>
+        <plotPanel :child_msg="'Plot-Panel  (Single-click on map to plot the WQP estimates time series)'"/>
         <!-- TODO: set inputs pixelInfo, pixelUnits, pixelCoordinates; for now random values -->
         <popUp
             :map="map"
@@ -170,12 +170,14 @@ export default {
                         layer_check++
                         this.isLayerActive=layer.getVisible()
                         return false
-                    } else if (layer_check==0 && i==lll ) { 
+                    } else if (layer_check==0 && i==lll ) {
                         this.map.getLayers().array_[nGroup+index].values_.layers.array_[lll].setVisible(!currentVisibilityLayer)     
                         this.currentDate = layer.date
                         // Forward value to time panel to set the request visible only if the layer group is
-                        this.isLayerActive=layer.getVisible()
-                    }
+                        if (layer.getVisible()==true){
+                            this.isLayerActive=layer.getVisible()
+                        }                         
+                    } 
                 });
                 // Visibility on/off only for the last layer of the group
     
@@ -392,6 +394,7 @@ export default {
                                     temp_array['values'].push(a)
                                 })
                                 temp_array['typology']=layers_dict[layer.title][layerName].typology;
+                                document.getElementById('metric-modal').innerHTML = '<div class="wait-message"><div class="loader"></div><div class="wait-message-text"><p>Plotting time series, please wait...</p></div></div>'
                                 plotData(temp_array)
                             }
                             // Array of time series getFeature

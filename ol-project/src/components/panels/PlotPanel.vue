@@ -31,6 +31,7 @@ export default {
     left: 10em;
     width: 700px;
     height: 425px;
+
 }
 
 #plotPanel{

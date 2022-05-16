@@ -129,6 +129,11 @@ export default {
     height: 55vh;
     z-index: 1;
     border:$border-rad;
+    background: white;
+
+    &:hover{
+        background: white;
+    }
 }
 
 .slide-title{
