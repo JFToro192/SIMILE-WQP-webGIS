@@ -93,7 +93,8 @@ import {toLonLat} from 'ol/proj';
 import {toStringHDMS} from 'ol/coordinate';
 import Overlay from 'ol/Overlay';
 import ImageWMS from 'ol/source/ImageWMS';
-
+// Popup
+import {dragElement} from '@/assets/js/controlFunctions'
 export default {
     name: "WebGISContainer",
     data () {
@@ -173,8 +174,9 @@ export default {
                     } else if (layer_check==0 && i==lll ) {
                         this.map.getLayers().array_[nGroup+index].values_.layers.array_[lll].setVisible(!currentVisibilityLayer)     
                         this.currentDate = layer.date
+                        console.log(this.currentDate);
                         // Forward value to time panel to set the request visible only if the layer group is
-                        if (layer.getVisible()==true){
+                        if (layer.getVisible()==true || i==lll){
                             this.isLayerActive=layer.getVisible()
                         }                         
                     } 
@@ -316,6 +318,8 @@ export default {
                 const popupCoordinate = document.getElementById('popup-coordinate');
                 const popupPixelInfo = document.getElementById('popup-getinfo');
                 const popupCloser = document.getElementById('popup-closer');
+                // Plot panel trigger
+                const plotPanel = document.getElementById('plotPanel');
                 const popupOverlay = new Overlay({
                     element: popupContainer,
                     autoPan: {
@@ -363,39 +367,44 @@ export default {
                                     popupPixelInfo.innerHTML = '<p>Value: </p><code>' + html.data.features['0'].properties["GRAY_INDEX"].toFixed(2) + ' ' + layer.units + '</code>'; 
                                     popupTitle.innerHTML = '<p>'+layer.name.split('_').splice(0,2).join('_')+':' +layer.date+'</p>';
                                 });
-
-                                // Implementing the requests for building the plot
-                                let layerName = layer.name.split('_').splice(0,2).join('_')
-                                let layerCRS = layer.name.split('_')[2]//Taking the first element matching the criteria; include a condition for the CRS
-                                let currentLayerList = layers_dict[layer.title][layerName].layer
-                                currentLayerList.forEach(layer => {
-                                    var asdf = layer.values_.source.getFeatureInfoUrl(
-                                        evt.coordinate,
-                                        viewResolution,
-                                        'EPSG:3857',
-                                        {'INFO_FORMAT': 'application/json'}
-                                    );
-                                    var  asdf = 'https://www.webgis.eo.simile.polimi.it/api/getLayerInfo?' + asdf.split('/')[asdf.split('/').length-1].split('?')[1]
-                                    let a = fetch(asdf)
-                                    .then((response) => response.json())
-                                    .then((html) => {
-                                        let c = html.data.features[0]                                        
-                                        if (c != undefined) {
-                                            let v = c.properties["GRAY_INDEX"]
-                                            if (v != null && v > 0) {
-                                                let obs = {
-                                                    'month': layer.date.toString(),
-                                                    'count': Number(v.toFixed(2))
+                                // Trigger multiple requests only when plot panel is active
+                                if (plotPanel.classList.contains('active')){    
+                                    // Implementing the requests for building the plot
+                                    let layerName = layer.name.split('_').splice(0,2).join('_')
+                                    let layerCRS = layer.name.split('_')[2]//Taking the first element matching the criteria; include a condition for the CRS
+                                    let currentLayerList = layers_dict[layer.title][layerName].layer
+                                    currentLayerList.forEach(layer => {
+                                        var asdf = layer.values_.source.getFeatureInfoUrl(
+                                            evt.coordinate,
+                                            viewResolution,
+                                            'EPSG:3857',
+                                            {'INFO_FORMAT': 'application/json'}
+                                        );
+                                        var  asdf = 'https://www.webgis.eo.simile.polimi.it/api/getLayerInfo?' + asdf.split('/')[asdf.split('/').length-1].split('?')[1]
+                                        let a = fetch(asdf)
+                                        .then((response) => response.json())
+                                        .then((html) => {
+                                            let c = html.data.features[0]                                        
+                                            if (c != undefined) {
+                                                let v = c.properties["GRAY_INDEX"]
+                                                if (v != null && v > 0) {
+                                                    let obs = {
+                                                        'month': layer.date.toString(),
+                                                        'count': Number(v.toFixed(2))
+                                                    }
+                                                    return obs
                                                 }
-                                                return obs
                                             }
-                                        }
+                                        })
+                                        temp_array['values'].push(a)
                                     })
-                                    temp_array['values'].push(a)
-                                })
-                                temp_array['typology']=layers_dict[layer.title][layerName].typology;
-                                document.getElementById('metric-modal').innerHTML = '<div class="wait-message"><div class="loader"></div><div class="wait-message-text"><p>Plotting time series, please wait...</p></div></div>'
-                                plotData(temp_array)
+                                    temp_array['typology']=layers_dict[layer.title][layerName].typology;
+                                
+                                    document.getElementById('metric-modal').innerHTML = '<div class="wait-message"><div class="loader"></div><div class="wait-message-text"><p>Plotting time series, please wait...</p></div></div>'
+                                    plotData(temp_array)
+                                } else {
+                                    document.getElementById('metric-modal').innerHTML = ''
+                                }
                             }
                             // Array of time series getFeature
                         } else {
@@ -404,6 +413,7 @@ export default {
                         }
                     });
                 });
+                
                 // Cursor behaviour on hoover (active layers, NOT basemaps)
                 map.on('pointermove', function (evt) {
                 if (evt.dragging) {
@@ -417,6 +427,8 @@ export default {
                 });
                     map.getTargetElement().style.cursor = hit ? 'pointer' : '';
                 });
+                // Drag popup element
+                dragElement(popupContainer);
             })
             .catch(err => console.log("No layers have been found in the site url"))
     }

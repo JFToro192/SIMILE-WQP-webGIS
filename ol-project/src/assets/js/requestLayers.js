@@ -62,69 +62,71 @@ function organizeLayers(layers,typologies,url) {
     layers_dict.basemap = {}
     // Organize the layers in the dictionary
     layers.forEach(element => {
-    let item = {}
-    let arr = element.Name.split(':')
-    // Extract info from name.
-    // TODO: add exceptions for the irregular name formatting
-    item.workspace = arr[0]
-    item.name = arr[1].split('_').slice(0,3).join('_');
-    // item.name = arr[1].split('_').slice(0,2).join('_');//Remove the CRS from the name
-    item.sensor = arr[1].split('_')[0]
-    item.typology = arr[1].split('_')[1]
-    item.crs = arr[1].split('_')[2]
-    if (arr[1].split('_')[3]!=undefined) {
-        item.timeComplete = arr[1].split('_')[3];
-        let t = arr[1].split('_')[3].split('T')[0]
-        item.timeFormatted = t.slice(0,4)+'-'+t.slice(4,6)+'-'+t.slice(6,8);
-    } else {
-        item.timeComplete = undefined
-        item.timeFormatted = undefined
-    }
-    item.level = arr[1].split('_')[4]
-    // Define style based on the layers typology
-    let styleValue = ''
-    if (tp.includes(item.typology)) {
-        styleValue = item.typology.toLowerCase()
-    }
-    item.layer = createTileWMS(element.Name,url,0.5,styleValue)       
+        let item = {}
+        let arr = element.Name.split(':')
+        if(arr[1].split('_')[2] == 'IT'){
+            // Extract info from name.
+            // TODO: add exceptions for the irregular name formatting
+            item.workspace = arr[0]
+            item.name = arr[1].split('_').slice(0,3).join('_');
+            // item.name = arr[1].split('_').slice(0,2).join('_');//Remove the CRS from the name
+            item.sensor = arr[1].split('_')[0]
+            item.typology = arr[1].split('_')[1]
+            item.crs = arr[1].split('_')[2]
+            if (arr[1].split('_')[3]!=undefined) {
+                item.timeComplete = arr[1].split('_')[3];
+                let t = arr[1].split('_')[3].split('T')[0]
+                item.timeFormatted = t.slice(0,4)+'-'+t.slice(4,6)+'-'+t.slice(6,8);
+            } else {
+                item.timeComplete = undefined
+                item.timeFormatted = undefined
+            }
+            item.level = arr[1].split('_')[4]
+            // Define style based on the layers typology
+            let styleValue = ''
+            if (tp.includes(item.typology)) {
+                styleValue = item.typology.toLowerCase()
+            }
+            item.layer = createTileWMS(element.Name,url,0.5,styleValue)       
 
-    // Assign the items into the corresponding category
-    if (item.timeComplete!=undefined){
-        if (item.name in layers_dict.time){
-            // Override layer opacity for time series display
-            item.layer = createTileWMS(element.Name,url,1,styleValue)
-            item.layer['title'] = 'time'
-            item.layer['date'] = item.timeFormatted
-            item.layer['name'] = item.name
-            if (item.name.split('_')[1]=="LSWT"){
-                item.layer['units'] = '[°C]'
-            } else if (item.name.split('_')[1]=="CHL"){
-                item.layer['units'] = '[mg/m3]'
-            } else if (item.name.split('_')[1]=="TSM"){
-                item.layer['units'] = '[g/m3]'
+            // Assign the items into the corresponding category
+            if (item.timeComplete!=undefined){
+                if (item.name in layers_dict.time){
+                    // Override layer opacity for time series display
+                    item.layer = createTileWMS(element.Name,url,1,styleValue)
+                    item.layer['title'] = 'time'
+                    item.layer['date'] = item.timeFormatted
+                    item.layer['name'] = item.name
+                    if (item.name.split('_')[1]=="LSWT"){
+                        item.layer['units'] = '[°C]'
+                    } else if (item.name.split('_')[1]=="CHL"){
+                        item.layer['units'] = '[mg/m3]'
+                    } else if (item.name.split('_')[1]=="TSM"){
+                        item.layer['units'] = '[g/m3]'
+                    }
+                    layers_dict.time[item.name].timeComplete.push(item.timeComplete);
+                    layers_dict.time[item.name].timeFormatted.push(item.timeFormatted);
+                    layers_dict.time[item.name].layer.push(item.layer);
+                }
+                else {
+                    item.layer = createTileWMS(element.Name,url,1)
+                    item.layer['title'] = 'time'
+                    item.layer['name'] = item.name
+                    item.layer['date'] = item.timeFormatted
+                    if (item.name.split('_')[1]=="LSWT"){
+                        item.layer['units'] = '[°C]'
+                    } else if (item.name.split('_')[1]=="CHL"){
+                        item.layer['units'] = '[mg/m3]'
+                    } else if (item.name.split('_')[1]=="TSM"){
+                        item.layer['units'] = '[g/m3]'
+                    }
+                    layers_dict.time = createDictLayers(layers_dict.time,item);
+                }
             }
-            layers_dict.time[item.name].timeComplete.push(item.timeComplete);
-            layers_dict.time[item.name].timeFormatted.push(item.timeFormatted);
-            layers_dict.time[item.name].layer.push(item.layer);
-        }
-        else {
-            item.layer = createTileWMS(element.Name,url,1)
-            item.layer['title'] = 'time'
-            item.layer['name'] = item.name
-            item.layer['date'] = item.timeFormatted
-            if (item.name.split('_')[1]=="LSWT"){
-                item.layer['units'] = '[°C]'
-            } else if (item.name.split('_')[1]=="CHL"){
-                item.layer['units'] = '[mg/m3]'
-            } else if (item.name.split('_')[1]=="TSM"){
-                item.layer['units'] = '[g/m3]'
+            else 
+                layers_dict.static = createDictLayers(layers_dict.static,item);
             }
-            layers_dict.time = createDictLayers(layers_dict.time,item);
-        }
-    }
-    else 
-        layers_dict.static = createDictLayers(layers_dict.static,item);
-    });
+        });
     // Return the layers list
     return layers_dict
 }
