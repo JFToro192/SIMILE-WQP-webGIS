@@ -166,23 +166,25 @@ export default {
                 let layer_check = 0
                 layers_col.forEach((layer,i) => {
                     let currentVisibilityLayer = this.map.getLayers().array_[nGroup+index].values_.layers.array_[i].getVisible();
-                    if (layer.getVisible()==true && i!=lll) {
+                    if (layer.getVisible()==true && i!=lll && nGroup+index-2==this.currentGroup) {
                         this.map.getLayers().array_[nGroup+index].values_.layers.array_[i].setVisible(!currentVisibilityLayer)
                         layer_check++
                         this.isLayerActive=layer.getVisible()
-                        return false
+                        // return false
+                    } else if (layer.getVisible()==true && i!=lll) {
+                        this.map.getLayers().array_[nGroup+index].values_.layers.array_[i].setVisible(!currentVisibilityLayer)
+                        layer_check++
+                        // return false
                     } else if (layer_check==0 && i==lll ) {
                         this.map.getLayers().array_[nGroup+index].values_.layers.array_[lll].setVisible(!currentVisibilityLayer)     
                         this.currentDate = layer.date
-                        console.log(this.currentDate);
                         // Forward value to time panel to set the request visible only if the layer group is
-                        if (layer.getVisible()==true || i==lll){
+                        if (layer.getVisible()==true && i==lll){
                             this.isLayerActive=layer.getVisible()
-                        }                         
+                        } 
                     } 
                 });
                 // Visibility on/off only for the last layer of the group
-    
             }
         },
         setLayerVisibleTS(value) {
