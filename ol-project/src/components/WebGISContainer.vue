@@ -181,6 +181,8 @@ export default {
                         // Forward value to time panel to set the request visible only if the layer group is
                         if (layer.getVisible()==true && i==lll){
                             this.isLayerActive=layer.getVisible()
+                        } else if (i!=lll){
+                            this.isLayerActive=layer.getVisible()
                         } 
                     } 
                 });
