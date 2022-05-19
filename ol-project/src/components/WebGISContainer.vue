@@ -181,9 +181,9 @@ export default {
                         // Forward value to time panel to set the request visible only if the layer group is
                         if (layer.getVisible()==true && i==lll){
                             this.isLayerActive=layer.getVisible()
-                        } else if (i!=lll){
-                            this.isLayerActive=layer.getVisible()
-                        } 
+                        }
+                    } else if (layer.getVisible()==false && nGroup+index-2==this.currentGroup){
+                        this.isLayerActive=false
                     } 
                 });
                 // Visibility on/off only for the last layer of the group
