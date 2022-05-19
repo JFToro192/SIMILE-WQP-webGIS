@@ -89,7 +89,6 @@ export default {
             if (evt.target.checked){
                 this.setLayerMetadata(layerType, layerName)
             }
-            console.log(this.layer_list);
         },
         setLayerOpacity(evt, nGroup,index) {
             let opacity = evt.target.value;
