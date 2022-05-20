@@ -1,8 +1,18 @@
 <template>
         <div id="timePanel" class="time-panel ol-unselectable ol-control">
-            <div class="panel-title">{{child_msg}}</div>
+            <div class="panel-title">{{child_msg}}
+                <button class="close-panel-btn" style="color:red;" @click="closePanel($event)">x</button>
+            </div>
             <div class="time-container">
-                <div class="time-header"><strong>{{title}}</strong></div>
+                <div class="time-header">
+                    <strong>Select a ts:</strong>
+                    <select class="time-select-group" name="" id="dropDownGroup"  @change="updateGroupDropdown($event)">
+                        <option v-for="(item,index) in activeLayersList" 
+                            :value="index" 
+                            :key="index"
+                            >{{item.name}}</option>
+                    </select>
+                </div>
                 <div class="time-controls">
                     <div class="time-controls-dates">
                         <select name="" id="dropdownDate" @change="updateLayerDropdown($event)">
@@ -58,7 +68,7 @@ export default {
             default:() => {return {'0':'Select TS'}}
         },
         datesListLength: {
-            type: String,
+            type: Number,
             required: true,
         },
         currentDate: {
@@ -77,12 +87,23 @@ export default {
             type: Boolean,
             required: true,
         },
+        activeLayersList: {
+            type: Object,
+            required: true,
+        }
 	},
     data () {
         return {
         }
     },
     methods:{
+        closePanel(evt){
+            let div = evt.path[2]
+            let namePanel = '.show-' + div.classList[0].split('-')[0]
+            document.querySelector(namePanel).classList.remove("active");
+            div.classList.remove("active");
+            div.style.display='none';
+        },
         updateLayerSlider(evt) {
             if (this.isLayerActive) {
                 let newDate = evt.target.value;
@@ -95,6 +116,18 @@ export default {
                 this.$emit('updateLayerSlider', {nGroup, emitDate})
             }
         },
+        updateGroupDropdown(evt) {
+            console.log(this.activeLayersList);
+            // Cached data are not mutable... it is necessary to emit the new list and reassign it
+            // this.datesList = Object.assign({}, this.activeLayersList[evt.srcElement.value].datesList);
+            let nGroup = parseInt(evt.srcElement.value)+2;
+            let name =this.activeLayersList[evt.srcElement.value].name;
+            console.log(evt.srcElement.value);
+            let arr = this.activeLayersList[evt.srcElement.value].datesList
+            let emitDate = arr[arr.length-1]
+            console.log(this.currentGroup);
+            this.$emit('updateGroupDropdown', {name, nGroup ,emitDate})
+        },
         updateLayerDropdown(evt) {
             if (this.isLayerActive) {
                 let newDate = evt.target.value;
@@ -104,6 +137,7 @@ export default {
                 slider.value = newDate;
                 this.cDate = this.datesList[newDate];
                 this.cDateIndex = newDate;
+                console.log(nGroup);
                 this.$emit('updateLayerDropdown', {nGroup, emitDate})  
             }
         },
@@ -185,4 +219,6 @@ export default {
 .time-container{
     background: rgba($primary-bg-color,0.5);
   }
+
+
 </style>

@@ -29,6 +29,8 @@
             :currentDateIndex="currentDateIndex"
             :currentGroup="currentGroup"
             :isLayerActive="isLayerActive"
+            :activeLayersList="activeLayersList"
+            @updateGroupDropdown="updatedDropdown"
             @updateLayerSlider="setLayerVisibleTS"
             @updateLayerDropdown="setLayerVisibleTS"
             @stepBackwards="setLayerVisibleTS"
@@ -113,13 +115,15 @@ export default {
             units:"N/A",
             legend:"N/A",
             // Time Series Visualization Variables
-            datesList:{},
+            datesList:[],
             currentGroup:0,
             currentDate:'',
             currentDateIndex:0,
             isLayerActive:false,
-            datesListLength:'',
+            datesListLength:0,
             noGetinfo:0,
+            activeLayersList:{},
+            zIndexLayer:0,
         }
     },
     props: {
@@ -139,10 +143,29 @@ export default {
     },
     methods: {
         // TODO: refer to the current layer indexes values
+        updatedDropdown(value) {
+            let emitDate = value.emitDate;
+            let layerName = value.name;
+            let nGroup = value.nGroup;
+            let ll = this.map.getLayers().array_[nGroup]
+            this.currentGroup = nGroup - 2
+            this.datesList = this.layer_list.time[layerName].timeFormatted
+            this.zIndexLayer++
+            this.currentDate = this.datesList[Object.keys(this.datesList).length-1]
+            this.currentDateIndex = Object.keys(this.datesList).length
+            this.datesListLength = Object.keys(this.datesList).length
+            value = {
+                'layerType':'time',
+                'layerName':{'key':layerName}
+            }
+            this.setLayerMetadata(value)
+            ll.setZIndex(this.zIndexLayer)
+        },
         setLayerVisible(value) {
             let index = value.index;
             let nGroup = value.nGroup;
             let evtType = value.evtType;
+
             // Static Layers Case
             if (nGroup == 0) {
                 let basemaps = this.map.getLayers().array_[nGroup].values_.layers.array_
@@ -160,6 +183,30 @@ export default {
                 this.map.getLayers().array_[nGroup].values_.layers.array_[index].setVisible(!currentVisibility)
             } else {
                 let ll = this.map.getLayers().array_[nGroup+index]
+                if (index in this.activeLayersList){
+                    delete this.activeLayersList[index]
+                } else {
+                    this.zIndexLayer++
+                    this.activeLayersList[index] = {
+                        'name':ll.name,
+                        'datesList': this.datesList,
+                        'datesListLength': this.datesListLength,
+                        'currentDate': this.currentDate,
+                        'currentDateIndex': this.currentDateIndex,
+                        'currentGroup': this.currentGroup,
+                        'zindex':this.zIndexLayer
+                    }
+                    // document.querySelector('.time-select-group').value == "1"
+                    ll.setZIndex(this.activeLayersList[index].zindex)
+                    console.log(ll);
+                }
+                console.log(this.activeLayersList);
+                // if (this.activeLayersList.includes(ll.name)==false) {
+                //     this.activeLayersList.push(ll.name)
+                // } else {
+                //     this.activeLayersList=_.without(this.activeLayersList,ll.name)
+                // }
+                // console.log(this.activeLayersList);
                 let lll = ll.values_.layers.array_.length-1
                 // Search layer visibility of the collection
                 let layers_col = this.map.getLayers().array_[nGroup+index].values_.layers.array_
@@ -170,11 +217,9 @@ export default {
                         this.map.getLayers().array_[nGroup+index].values_.layers.array_[i].setVisible(!currentVisibilityLayer)
                         layer_check++
                         this.isLayerActive=layer.getVisible()
-                        // return false
                     } else if (layer.getVisible()==true && i!=lll) {
                         this.map.getLayers().array_[nGroup+index].values_.layers.array_[i].setVisible(!currentVisibilityLayer)
                         layer_check++
-                        // return false
                     } else if (layer_check==0 && i==lll ) {
                         this.map.getLayers().array_[nGroup+index].values_.layers.array_[lll].setVisible(!currentVisibilityLayer)     
                         this.currentDate = layer.date
@@ -186,6 +231,7 @@ export default {
                         this.isLayerActive=false
                     } 
                 });
+                
                 // Visibility on/off only for the last layer of the group
             }
         },

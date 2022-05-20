@@ -1,6 +1,8 @@
 <template>
         <div id="layerPanel" class="layer-panel ol-unselectable ol-control active">
-            <div class="panel-title">{{child_msg}}</div>
+            <div class="panel-title">{{child_msg}}
+                <button class="close-panel-btn" style="color:red;" @click="closePanel($event)">x</button>
+            </div>
             <!-- <h6 class="static-layers-title"><i class="bi bi-arrow-right"></i>Static Layers</h6> -->
             <div class="static-layers active" id="staticLayers">
                 <div class="static-layer layer-list" v-for="(layer,key,index) in layer_list.static" :key="layer.static">
@@ -43,6 +45,7 @@
                                     id=""
                                     v-bind:class="'layer-timeSeries-'+index"
                                     v-on:change="setLayerVisible($event,2,index,'time',{key})">
+                            
                         </div>
                         <div class="title-layer"><p v-bind:title="key">{{key}}</p></div>
                         <!-- <div class="dwnld-layer"><i class="bi bi-box-arrow-down"></i></div> -->
@@ -68,6 +71,7 @@
 </template>
 
 <script>
+import {openPanel} from '@/assets/js/controlFunctions'
 export default {
     name: 'Layer',
 	props:{
@@ -84,6 +88,13 @@ export default {
         }
     },
     methods: {
+        closePanel(evt){
+            let div = evt.path[2]
+            let namePanel = '.show-' + div.classList[0].split('-')[0]
+            document.querySelector(namePanel).classList.remove("active");
+            div.classList.remove("active");
+            div.style.display='none';
+        },
         setLayerVisible(evt,nGroup,index,layerType, layerName) {
             this.$emit('setLayerVisible', {nGroup, index})
             if (evt.target.checked){
@@ -103,7 +114,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/sass/style.scss";
-
 .layer-panel {
     position: absolute;
     // display:none;
@@ -145,7 +155,7 @@ export default {
     }
 
     .title-layer{
-        width:35%;
+        width:100%;
         p{
             text-overflow: ellipsis;
             overflow: hidden;

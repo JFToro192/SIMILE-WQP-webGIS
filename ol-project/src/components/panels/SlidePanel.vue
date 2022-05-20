@@ -1,6 +1,8 @@
 <template>
         <div id="slidePanel" class="slide-panel ol-unselectable ol-control" style="display:none">
-            <div class="panel-title">{{child_msg}}</div>
+            <div class="panel-title">{{child_msg}}
+                <button class="close-panel-btn" style="color:red;" @click="closePanel($event)">x</button>
+            </div>
             <div class="slidepanel-show">
                 <carousel-container
                     @prev="prev"
@@ -69,6 +71,13 @@ export default {
         }
     },
     methods: {
+        closePanel(evt){
+            let div = evt.path[2]
+            let namePanel = '.show-' + div.classList[0].split('-')[0]
+            document.querySelector(namePanel).classList.remove("active");
+            div.classList.remove("active");
+            div.style.display='none';
+        },
         prev () {
             if(this.visibleSlide <= 0){
                 this.visibleSlide = this.slidesLen - 1;

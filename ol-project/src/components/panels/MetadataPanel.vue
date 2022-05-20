@@ -1,6 +1,8 @@
 <template>
         <div id="metadataPanel" class="metadata-panel ol-unselectable ol-control">
-            <div class="panel-title">{{child_msg}}</div> 
+            <div class="panel-title">{{child_msg}}
+                <button class="close-basemap close-panel-btn" style="color:red;" @click="closePanel($event)">x</button>
+            </div> 
             <div class="meta-title">
                 <h6>{{title}}</h6>
             </div>
@@ -76,6 +78,15 @@ export default {
     data () {
         return {
         }
+    },
+    methods: {
+        closePanel(evt){
+            let div = evt.path[2]
+            let namePanel = '.show-' + div.classList[0].split('-')[0]
+            document.querySelector(namePanel).classList.remove("active");
+            div.classList.remove("active");
+            div.style.display='none';
+        },
     }
 }
 </script>

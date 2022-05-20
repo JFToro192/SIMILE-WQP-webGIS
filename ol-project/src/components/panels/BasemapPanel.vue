@@ -1,6 +1,8 @@
 <template>
     <div id="basemapPanel" class="basemap-panel ol-unselectable ol-control">
-        <div class="panel-title">{{child_msg}}</div>
+        <div class="panel-title">{{child_msg}}
+			<button class="close-panel-btn" style="color:red;" @click="closePanel($event)">x</button>
+		</div>
 		<div class="basemap-container">
 			<div v-for="(basemap,index) in data" :key="basemap.layer"
 				class="basemap-container_item">
@@ -49,6 +51,13 @@ export default {
       }
     },
 	methods: {
+		closePanel(evt){
+            let div = evt.path[2]
+            let namePanel = '.show-' + div.classList[0].split('-')[0]
+            document.querySelector(namePanel).classList.remove("active");
+            div.classList.remove("active");
+            div.style.display='none';
+        },
 		getImage(name) {
 			if (name == "osm") {
 				return osm

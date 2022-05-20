@@ -160,3 +160,27 @@
 .ol-touch .show-geonode {
     top: 80px;
 }
+
+// .ol-popup-closer {
+//     text-decoration: none;
+//     position: absolute;
+//     top: 2px;
+//     right: 8px;
+// }
+// .ol-popup-closer:after {
+//     content: "✖";
+// }
+
+.close-panel-btn{
+    position: absolute;
+    right:0;
+    top:0;
+    color:$secondary-font-color!important;
+    margin: 2px!important;
+    height: 18px!important;
+    background-color:transparent!important;
+
+    &:hover{
+        color:red!important;
+    }
+}

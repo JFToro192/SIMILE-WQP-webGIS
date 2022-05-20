@@ -185,6 +185,7 @@ function createLayerGroups(organizedLayers){
     let layersGroup = []
     for (let item in organizedLayers){
         if (item == "time") { //Group time layers
+            let i = 0
             for (let layerDict in organizedLayers[item]){
                 let ll = organizedLayers[item][layerDict].layer
                 layersGroup.push(new LayerGroup({
@@ -192,6 +193,8 @@ function createLayerGroups(organizedLayers){
                     visible:true,
                     opacity:0.8
                 }))
+                layersGroup[i]['name'] = layerDict.replace('_IT','')
+                i ++ 
             }        
         } else {
             for (let staticLayer in organizedLayers[item]) {
