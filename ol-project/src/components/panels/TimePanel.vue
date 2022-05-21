@@ -6,7 +6,7 @@
             <div class="time-container">
                 <div class="time-header">
                     <strong>Select a ts:</strong>
-                    <select class="time-select-group" name="" id="dropDownGroup"  @change="updateGroupDropdown($event)">
+                    <select class="time-select-group" name="" id="dropDownGroup" v-bind:value="currentGroupIndex" @change="updateGroupDropdown($event)">
                         <option v-for="(item,index) in activeLayersList" 
                             :value="index" 
                             :key="index"
@@ -83,6 +83,10 @@ export default {
             type: Number,
             required: true,
         },
+        currentGroupIndex: {
+            type: Number,
+            required: true,
+        },
         isLayerActive: {
             type: Boolean,
             required: true,
@@ -117,15 +121,12 @@ export default {
             }
         },
         updateGroupDropdown(evt) {
-            console.log(this.activeLayersList);
             // Cached data are not mutable... it is necessary to emit the new list and reassign it
             // this.datesList = Object.assign({}, this.activeLayersList[evt.srcElement.value].datesList);
             let nGroup = parseInt(evt.srcElement.value)+2;
             let name =this.activeLayersList[evt.srcElement.value].name;
-            console.log(evt.srcElement.value);
             let arr = this.activeLayersList[evt.srcElement.value].datesList
             let emitDate = arr[arr.length-1]
-            console.log(this.currentGroup);
             this.$emit('updateGroupDropdown', {name, nGroup ,emitDate})
         },
         updateLayerDropdown(evt) {
@@ -137,7 +138,6 @@ export default {
                 slider.value = newDate;
                 this.cDate = this.datesList[newDate];
                 this.cDateIndex = newDate;
-                console.log(nGroup);
                 this.$emit('updateLayerDropdown', {nGroup, emitDate})  
             }
         },

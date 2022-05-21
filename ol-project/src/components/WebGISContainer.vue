@@ -28,6 +28,7 @@
             :currentDate="currentDate"
             :currentDateIndex="currentDateIndex"
             :currentGroup="currentGroup"
+            :currentGroupIndex="currentGroupIndex"
             :isLayerActive="isLayerActive"
             :activeLayersList="activeLayersList"
             @updateGroupDropdown="updatedDropdown"
@@ -117,6 +118,7 @@ export default {
             // Time Series Visualization Variables
             datesList:[],
             currentGroup:0,
+            currentGroupIndex:0,
             currentDate:'',
             currentDateIndex:0,
             isLayerActive:false,
@@ -149,11 +151,13 @@ export default {
             let nGroup = value.nGroup;
             let ll = this.map.getLayers().array_[nGroup]
             this.currentGroup = nGroup - 2
+            this.currentGroupIndex = this.currentGroup
             this.datesList = this.layer_list.time[layerName].timeFormatted
             this.zIndexLayer++
             this.currentDate = this.datesList[Object.keys(this.datesList).length-1]
             this.currentDateIndex = Object.keys(this.datesList).length
             this.datesListLength = Object.keys(this.datesList).length
+
             value = {
                 'layerType':'time',
                 'layerName':{'key':layerName}
@@ -185,6 +189,13 @@ export default {
                 let ll = this.map.getLayers().array_[nGroup+index]
                 if (index in this.activeLayersList){
                     delete this.activeLayersList[index]
+                    let arr_keys = Object.keys(this.activeLayersList)
+                    if (arr_keys.length > 0){
+                        this.currentGroupIndex =  this.activeLayersList[arr_keys[0]].currentGroup;
+                        this.zIndexLayer+=arr_keys.length
+                        this.activeLayersList[arr_keys[0]].zindex = this.zIndexLayer
+                        ll.setZIndex(this.activeLayersList[arr_keys[0]].zindex)
+                    }
                 } else {
                     this.zIndexLayer++
                     this.activeLayersList[index] = {
@@ -193,20 +204,13 @@ export default {
                         'datesListLength': this.datesListLength,
                         'currentDate': this.currentDate,
                         'currentDateIndex': this.currentDateIndex,
-                        'currentGroup': this.currentGroup,
+                        'currentGroup': index,
                         'zindex':this.zIndexLayer
                     }
-                    // document.querySelector('.time-select-group').value == "1"
+                    this.currentGroupIndex = index;
+                    // let lll = ll.values_.layers.array_.length-1
                     ll.setZIndex(this.activeLayersList[index].zindex)
-                    console.log(ll);
                 }
-                console.log(this.activeLayersList);
-                // if (this.activeLayersList.includes(ll.name)==false) {
-                //     this.activeLayersList.push(ll.name)
-                // } else {
-                //     this.activeLayersList=_.without(this.activeLayersList,ll.name)
-                // }
-                // console.log(this.activeLayersList);
                 let lll = ll.values_.layers.array_.length-1
                 // Search layer visibility of the collection
                 let layers_col = this.map.getLayers().array_[nGroup+index].values_.layers.array_
@@ -409,16 +413,21 @@ export default {
                                 {'INFO_FORMAT': 'application/json'}
                             );
                             var  url = "https://www.webgis.eo.simile.polimi.it/api/getLayerInfo?" + url.split('/')[url.split('/').length-1].split('?')[1]
+                            // TODO: '_IT'
+                            let i = document.querySelector('.time-select-group').selectedIndex
+                            let activeLayer = document.querySelector('.time-select-group').options[i].text+'_IT'
                             if (url) {
                                 const myRequest = new Request(url);
                                 fetch(myRequest)
                                 .then((response) => response.json())
                                 .then((html) => {
-                                    popupPixelInfo.innerHTML = '<p>Value: </p><code>' + html.data.features['0'].properties["GRAY_INDEX"].toFixed(2) + ' ' + layer.units + '</code>'; 
-                                    popupTitle.innerHTML = '<p>'+layer.name.split('_').splice(0,2).join('_')+':' +layer.date+'</p>';
+                                    if (layer.name==activeLayer) {
+                                        popupPixelInfo.innerHTML = '<p>Value: </p><code>' + html.data.features['0'].properties["GRAY_INDEX"].toFixed(2) + ' ' + layer.units + '</code>'; 
+                                        popupTitle.innerHTML = '<p>'+layer.name.split('_').splice(0,2).join('_')+':' +layer.date+'</p>';
+                                    }
                                 });
                                 // Trigger multiple requests only when plot panel is active
-                                if (plotPanel.classList.contains('active')){    
+                                if (plotPanel.classList.contains('active')&& layer.name==activeLayer){    
                                     // Implementing the requests for building the plot
                                     let layerName = layer.name.split('_').splice(0,2).join('_')
                                     let layerCRS = layer.name.split('_')[2]//Taking the first element matching the criteria; include a condition for the CRS

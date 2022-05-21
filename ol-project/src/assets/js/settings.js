@@ -49,7 +49,7 @@ const settings = {
             title:"Visualize and explore the WQP",
             src:"i3.png",
             description:"3. Review the different components allowing the visualization of the maps, such as the layer panel, metadata panel and time controller",
-            details:"In case of the time series, once set visible, this will activate the (1) Metadata and (2) Time Panels. In the (1) Metadata Panel you will find more information regarding the production of the maps. On the other hand, the (2) Time Panel will allow you to visualize the evolution of the active water quality parameter in time. Notice the timestamps are retrieved for the latest activated time series"
+            details:"In case of the time series, once set visible, this will activate the (1) Metadata and (2) Time Panels. In the (1) Metadata Panel you will find more information regarding the production of the maps. On the other hand, the (2) Time Panel will allow you to visualize the evolution of the active water quality parameter in time. Notice the timestamps are retrieved for the latest activated time series. The layers activation order will determine the layers overlay (the latest activated layer will be set on top)."
         },
         {
             title:"Observe the evolution of the time series",
@@ -79,7 +79,7 @@ const settings = {
             title:"Review the evolution of the WQP at a point",
             src:"i8.png",
             description:"8. Plot time series of the estimates for a WQP at a point",
-            details:"By clicking on a map, you will also be able to explore the evolution of the estimates by activating the (1) Plot Panel. The Plot Panel presents a dynamic graph were you can review the complete time series at a point, or clip the estimates according to the (2) range that can be edited in the subplot. Alternatively, you can clip the data by limiting the plot to a (3) month, or year (depending on the lenght of the time series, or return to the complete plot for the time series by clicking on (4) data"
+            details:"By clicking on a map, you will also be able to explore the evolution of the estimates by activating the (1) Plot Panel. The Plot Panel presents a dynamic graph were you can review the complete time series at a point, or clip the estimates according to the (2) range that can be edited in the subplot. Alternatively, you can clip the data by limiting the plot to a (3) month, or year (depending on the lenght of the time series, or return to the complete plot for the time series by clicking on (4) data. Note: the plot is presented for the latest activated layer (either from the Layer or Time Panels)"
         },
         // {
         //     title:"Review the evolution of the WQP at a point",
