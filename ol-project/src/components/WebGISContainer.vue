@@ -191,10 +191,10 @@ export default {
                     delete this.activeLayersList[index]
                     let arr_keys = Object.keys(this.activeLayersList)
                     if (arr_keys.length > 0){
-                        this.currentGroupIndex =  this.activeLayersList[arr_keys[0]].currentGroup;
-                        this.zIndexLayer+=arr_keys.length
+                        this.currentGroupIndex = this.activeLayersList[arr_keys[0]].currentGroup;
+                        this.zIndexLayer+= 1
                         this.activeLayersList[arr_keys[0]].zindex = this.zIndexLayer
-                        ll.setZIndex(this.activeLayersList[arr_keys[0]].zindex)
+                        this.map.getLayers().array_[nGroup+parseInt(arr_keys[0])].setZIndex(this.activeLayersList[arr_keys[0]].zindex)
                     }
                 } else {
                     this.zIndexLayer++
