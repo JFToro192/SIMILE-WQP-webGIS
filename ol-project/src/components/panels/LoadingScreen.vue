@@ -6,7 +6,7 @@
         <div class="loading-message">
             <div class="loading-message-contents">
                 <h1>Welcome to SIMILE's WebGIS</h1>
-                <p>Please wait for the layers to load</p>
+                <p>Please wait</p>
                 <div class="snippet" data-title="dot-pulse">
                     <div class="stage">
                         <div class="dot-pulse"></div>
@@ -70,7 +70,7 @@ export default {
  */
 .dot-pulse {
   position: relative;
-  left: -9600px;
+  left: -9625px;
   width: 10px;
   height: 10px;
   border-radius: 5px;

@@ -84,12 +84,6 @@ const settings = {
             description:"8. Plot time series of the estimates for a WQP at a point",
             details:"By clicking on a map, you will also be able to explore the evolution of the estimates by activating the (1) Plot Panel. The Plot Panel presents a dynamic graph were you can review the complete time series at a point, or clip the estimates according to the (2) range that can be edited in the subplot. Alternatively, you can clip the data by limiting the plot to a (3) month, or year (depending on the lenght of the time series, or return to the complete plot for the time series by clicking on (4) data. Note: the plot is presented for the latest activated layer (either from the Layer or Time Panels)"
         },
-        // {
-        //     title:"Review the evolution of the WQP at a point",
-        //     src:"i9.png",
-        //     description:"9. Plot time series of the estimates for a WQP at a point",
-        //     details:"By clicking on a map, you will also be able to explore the evolution of the estimates by activating the (1) Plot Panel. The Plot Panel presents a dynamic graph were you can review the complete time series at a point, or clip the estimates according to the (2) range that can be edited in the subplot. Alternatively, you can clip the data by limiting the plot to a (3) month, or year (depending on the lenght of the time series, or return to the complete plot for the time series by clicking on (4) data"
-        // },
     ]
 }
 
