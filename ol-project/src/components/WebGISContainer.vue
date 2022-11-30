@@ -57,6 +57,9 @@
             :pixelInfo="'click-on map'"
             :pixelUnits="'select a pixel'"
         />
+        <loading-screen 
+            :isLoading="isLoading"
+        />
     </div>
 
 </template>
@@ -64,14 +67,6 @@
 <script>
 // Add Map
 import {addMap} from '@/assets/js/map'
-// Add Controls to map
-import {layerPanel,
-		metadataPanel,
-		timePanel,
-		basemapPanel,
-		plotPanel,
-		slidePanel,
-		popup} from 'js/panelCreate';
 // Organize layers
 import {organizeLayers, basemapLayers, createLayerGroups, plotData} from '@/assets/js/requestLayers'
 // Components
@@ -82,6 +77,7 @@ import BasemapPanel from './panels/BasemapPanel.vue'
 import PlotPanel from './panels/PlotPanel.vue'
 import SlidePanel from './panels/SlidePanel.vue'
 import PopUp from './panels/PopUp.vue'
+import LoadingScreen from './panels/LoadingScreen.vue'
 //Import legend images
 import chl_legend from 'img/legend/chl_legend.png'
 import tsm_legend from 'img/legend/tsm_legend.png'
@@ -126,6 +122,7 @@ export default {
             noGetinfo:0,
             activeLayersList:{},
             zIndexLayer:0,
+            isLoading: true,
         }
     },
     props: {
@@ -142,6 +139,7 @@ export default {
         plotPanel: PlotPanel,
         slidePanel: SlidePanel,
         popUp: PopUp,
+        loadingScreen: LoadingScreen
     },
     methods: {
         // TODO: refer to the current layer indexes values
@@ -324,7 +322,7 @@ export default {
         },
         
     },
-    mounted() {
+    async mounted() {
         // Settings
         this.basemap_settings = this.settings.basemaps
         axios.get(this.settings.urlWMSget)
@@ -488,6 +486,7 @@ export default {
                 });
                 // Drag popup element
                 dragElement(popupContainer);
+                this.isLoading = false;
             })
             .catch(err => console.log("No layers have been found in the site url"))
     }

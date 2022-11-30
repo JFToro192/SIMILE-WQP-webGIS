@@ -31,7 +31,7 @@ export default {
         evtCoordinate: {
             type: String,
             required: true,
-            default:'Select layer'
+            default:'N/A'
         },
         pixelCoordinate: {
             type: String,
@@ -54,7 +54,7 @@ export default {
 
 <style lang="scss" scoped>
     @import "@/assets/sass/style.scss";
-
+    
     .ol-popup {
         z-index: 1;
         position: absolute;

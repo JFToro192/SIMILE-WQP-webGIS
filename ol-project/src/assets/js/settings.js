@@ -4,6 +4,9 @@ const settings = {
     urlWMS: "https://www.geonode.eo.simile.polimi.it/geoserver/geonode/wms",
     urlWMSget: "https://www.webgis.eo.simile.polimi.it/api/getLayers",
     urlWMSfeatureInfo: "https://www.webgis.eo.simile.polimi.it/api/getLayerInfo",
+    // urlWMS: "http://localhost:8083/geoserver/geonode/wms",
+    // urlWMSget: "http://localhost:8083/api/getLayers",
+    // urlWMSfeatureInfo: "http://localhost:8083/api/getLayerInfo",
     typology:{
         CHL:{
             title:"Chlorophyll-a",
