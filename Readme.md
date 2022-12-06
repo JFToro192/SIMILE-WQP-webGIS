@@ -6,7 +6,7 @@
 
 The WebGIS app is being developed under the framework of the 
 [interreg project SIMILE](https://progetti.interreg-italiasvizzera.eu/it/b/78/sistemainformativoperilmonitoraggiointegratodeilaghiinsubriciedeiloroe)
-to visualize the Water Quality Parameter (WQP) Maps products. 
+to visualize the Water Quality Parameter (WQP) Maps products (https://www.webgis.eo.simile.polimi.it/). 
 
 The project aims to improve the actual insubric lakes monitoring system and to create a shared policy for water management
 through an advanced informative system and citizen participation. The project is funded under the Interreg Italy-Switzerland Cooperation
